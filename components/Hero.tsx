@@ -5,10 +5,13 @@ import Chart3D from "./Chart3D";
 export default function Hero() {
   return (
     <section className="relative pt-40 pb-[120px] bg-white overflow-hidden">
-      {/* Minimal animated background — floating 3D particles + drifting blobs */}
-      <MinimalBackground />
-      {/* Soft white fade so content stays readable over the background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white pointer-events-none" />
+      {/* Minimal animated background — confined to the top so it stays behind
+          the headline and never bleeds around the dashboard mockup */}
+      <div className="absolute top-0 left-0 right-0 h-[620px] overflow-hidden pointer-events-none">
+        <MinimalBackground />
+        {/* Soft white fade so content stays readable and the particles dissolve before the dashboard */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/40 via-transparent to-white pointer-events-none" />
+      </div>
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6 text-center">
         {/* Badge */}
