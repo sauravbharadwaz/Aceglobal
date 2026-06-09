@@ -1,6 +1,19 @@
+import Hero3DBackground from "./Hero3DBackground";
+
 export default function Hero() {
   return (
     <section className="relative pt-40 pb-[120px] bg-white overflow-hidden">
+      {/* Moving 3D background — floating low-poly shapes */}
+      <Hero3DBackground />
+      {/* Soft radial white fade keeps the headline readable over the 3D shapes */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 55% at 50% 45%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.45) 45%, rgba(255,255,255,0) 80%)",
+        }}
+      />
+
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6 text-center">
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-[#94a6fe]/20 border border-[#94a6fe]/30 px-4 py-2 rounded-full mb-6">
