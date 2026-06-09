@@ -14,7 +14,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-12 mb-20">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="text-2xl font-bold text-white mb-6 block">
+            <Link href="/" className="text-2xl font-semibold text-white mb-6 block">
               Ace Global
             </Link>
             <p className="text-[#dbe1ff]/60 mb-8 max-w-xs leading-relaxed text-sm">
@@ -47,7 +47,7 @@ export default function Footer() {
           {/* Link columns */}
           {Object.entries(links).map(([heading, items]) => (
             <div key={heading}>
-              <p className="text-white text-sm font-semibold mb-6">{heading}</p>
+              <p className="text-white text-sm font-medium mb-6">{heading}</p>
               <ul className="space-y-4">
                 {items.map((item) => (
                   <li key={item}>

@@ -5,7 +5,7 @@ export default function TrustBar() {
   return (
     <section className="py-16 bg-white">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
-        <p className="text-center text-xs font-semibold text-[#c2c6d8] mb-10 tracking-widest uppercase">
+        <p className="text-center text-xs font-medium text-[#c2c6d8] mb-10 tracking-widest uppercase">
           We&apos;ve helped thousands of startups save $100M+
         </p>
       </div>
@@ -23,7 +23,7 @@ export default function TrustBar() {
           {doubled.map((name, i) => (
             <span
               key={`${name}-${i}`}
-              className="text-lg font-bold text-[#00174c] tracking-tight whitespace-nowrap"
+              className="text-lg font-semibold text-[#00174c] tracking-tight whitespace-nowrap"
             >
               {name}
             </span>

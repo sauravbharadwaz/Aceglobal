@@ -33,7 +33,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         className="flex justify-between items-center w-full text-left"
         onClick={() => setOpen(!open)}
       >
-        <span className="text-2xl font-semibold text-[#00174c]">{q}</span>
+        <span className="text-2xl font-medium text-[#00174c]">{q}</span>
         <span
           className={`ml-4 flex-shrink-0 text-[#727687] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         >
@@ -57,11 +57,11 @@ export default function FAQ() {
           {/* Sticky CTA card */}
           <div className="lg:col-span-5">
             <div className="bg-[#172d65] text-white p-12 rounded-[40px] sticky top-32">
-              <h2 className="text-3xl font-semibold mb-6">Have more questions?</h2>
+              <h2 className="text-3xl font-medium mb-6">Have more questions?</h2>
               <p className="text-[#dbe1ff]/60 mb-10 leading-relaxed">
                 We&apos;re here to help you navigate startup finance. Talk to one of our experts today.
               </p>
-              <button className="bg-white text-[#172d65] px-8 py-4 rounded-full font-semibold hover:bg-[#f2f3ff] transition-colors w-full">
+              <button className="bg-white text-[#172d65] px-8 py-4 rounded-full font-medium hover:bg-[#f2f3ff] transition-colors w-full">
                 Chat with Sales
               </button>
             </div>

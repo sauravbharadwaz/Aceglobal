@@ -6,7 +6,7 @@ const logos = [
 function LogoItem({ name }: { name: string }) {
   return (
     <div className="flex items-center justify-center px-8 py-3 shrink-0">
-      <span className="text-slate-500 font-semibold text-sm tracking-wide uppercase opacity-60 hover:opacity-100 transition-opacity whitespace-nowrap">
+      <span className="text-slate-500 font-medium text-sm tracking-wide uppercase opacity-60 hover:opacity-100 transition-opacity whitespace-nowrap">
         {name}
       </span>
     </div>

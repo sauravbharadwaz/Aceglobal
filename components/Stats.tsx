@@ -12,7 +12,7 @@ export default function Stats() {
         <div className="card-glass rounded-2xl grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-white/10">
           {stats.map((s) => (
             <div key={s.label} className="px-8 py-6 text-center">
-              <div className="text-2xl md:text-3xl font-bold text-white mb-1">{s.value}</div>
+              <div className="text-2xl md:text-3xl font-semibold text-white mb-1">{s.value}</div>
               <div className="text-sm text-slate-400">{s.label}</div>
             </div>
           ))}

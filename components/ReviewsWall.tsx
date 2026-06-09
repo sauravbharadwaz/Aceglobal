@@ -67,12 +67,12 @@ function ReviewCard({ r }: { r: Review }) {
     <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#c2c6d8]/20 w-[360px] flex-shrink-0">
       <div className="flex items-center gap-3 mb-4">
         <div
-          className={`w-10 h-10 rounded-full ${r.color} flex items-center justify-center text-white text-xs font-bold flex-shrink-0`}
+          className={`w-10 h-10 rounded-full ${r.color} flex items-center justify-center text-white text-xs font-semibold flex-shrink-0`}
         >
           {r.initials}
         </div>
         <div>
-          <p className="text-sm font-semibold text-[#00174c]">{r.name}</p>
+          <p className="text-sm font-medium text-[#00174c]">{r.name}</p>
           <p className="text-xs text-[#727687]">{r.role}</p>
         </div>
       </div>
@@ -106,7 +106,7 @@ export default function ReviewsWall() {
       <div className="max-w-[1280px] mx-auto px-5 md:px-6 mb-16">
         {/* Pull quote */}
         <div className="max-w-3xl mx-auto text-center">
-          <blockquote className="text-[40px] md:text-[60px] font-bold leading-[1.1] tracking-[-0.02em] text-[#00174c]">
+          <blockquote className="text-[40px] md:text-[60px] font-semibold leading-[1.1] tracking-[-0.02em] text-[#00174c]">
             &ldquo;This took a huge weight off my shoulders.&rdquo;
           </blockquote>
         </div>

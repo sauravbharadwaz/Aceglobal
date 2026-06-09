@@ -39,10 +39,10 @@ export default function HowItWorks() {
     <section id="platform" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-indigo-400 text-sm font-semibold uppercase tracking-widest mb-3">
+          <p className="text-indigo-400 text-sm font-medium uppercase tracking-widest mb-3">
             How it works
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-semibold text-white mb-4">
             Up and running in minutes
           </h2>
           <p className="text-slate-400 text-lg max-w-xl mx-auto">
@@ -57,13 +57,13 @@ export default function HowItWorks() {
           {steps.map((step, i) => (
             <div key={step.number} className="relative flex flex-col items-center text-center md:items-start md:text-left">
               {/* Number pill */}
-              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-bold text-sm mb-6 relative z-10">
+              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white font-semibold text-sm mb-6 relative z-10">
                 {i + 1}
               </div>
 
               <div className="card-glass rounded-2xl p-6 w-full">
                 <div className="text-indigo-400 mb-4">{step.icon}</div>
-                <h3 className="text-xl font-bold text-white mb-3">{step.title}</h3>
+                <h3 className="text-xl font-semibold text-white mb-3">{step.title}</h3>
                 <p className="text-slate-400 text-sm leading-relaxed">{step.description}</p>
               </div>
             </div>

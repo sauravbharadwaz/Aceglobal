@@ -29,19 +29,19 @@ function OnboardingVisual() {
   ];
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-white/50 p-6 w-full">
-      <p className="text-sm font-semibold text-[#00174c] mb-4">Connect your accounts</p>
+      <p className="text-sm font-medium text-[#00174c] mb-4">Connect your accounts</p>
       {rows.map((item) => (
         <div
           key={item.name}
           className="flex justify-between items-center py-3 border-b border-[#c2c6d8]/20 last:border-0"
         >
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[#f2f3ff] border border-[#c2c6d8]/30 flex items-center justify-center text-xs font-bold text-[#0053ce]">
+            <div className="w-8 h-8 rounded-lg bg-[#f2f3ff] border border-[#c2c6d8]/30 flex items-center justify-center text-xs font-semibold text-[#0053ce]">
               {item.name[0]}
             </div>
             <span className="text-sm font-medium text-[#00174c]">{item.name}</span>
           </div>
-          <span className={`text-xs px-3 py-1 rounded-full font-semibold ${item.color}`}>
+          <span className={`text-xs px-3 py-1 rounded-full font-medium ${item.color}`}>
             {item.status}
           </span>
         </div>
@@ -54,8 +54,8 @@ function AutopilotVisual() {
   return (
     <div className="bg-white rounded-2xl shadow-xl border border-white/50 p-6 w-full">
       <div className="flex justify-between items-center mb-5">
-        <p className="text-sm font-semibold text-[#00174c]">This month — Autopilot</p>
-        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-semibold">
+        <p className="text-sm font-medium text-[#00174c]">This month — Autopilot</p>
+        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">
           Running
         </span>
       </div>
@@ -89,7 +89,7 @@ function FreedomVisual() {
         </div>
         <div>
           <p className="text-xs text-[#727687]">Status</p>
-          <p className="text-sm font-semibold text-[#00174c]">Everything handled</p>
+          <p className="text-sm font-medium text-[#00174c]">Everything handled</p>
         </div>
       </div>
       {[
@@ -164,39 +164,39 @@ function StepCard({
   const scale = useTransform(progress, [i / total, 1], [1, targetScale]);
 
   return (
-    <div className="sticky top-28 flex justify-center">
+    <div className="sticky top-24 flex justify-center">
       <motion.div
-        style={{ scale, top: `${i * 28}px` }}
-        className={`relative w-full ${step.cardClass} rounded-[40px] p-8 md:p-14 shadow-[0_20px_60px_rgba(15,38,120,0.15)] origin-top`}
+        style={{ scale, top: `${i * 22}px` }}
+        className={`relative w-full ${step.cardClass} rounded-[28px] p-6 md:p-10 shadow-[0_16px_48px_rgba(15,38,120,0.14)] origin-top`}
       >
-        <div className="flex flex-col md:flex-row items-center gap-10">
+        <div className="flex flex-col md:flex-row items-center gap-8">
           {/* Text */}
           <div className="flex-1">
             <div
-              className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mb-6 ${step.badgeClass}`}
+              className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold text-base mb-4 ${step.badgeClass}`}
             >
               {step.n}
             </div>
-            <h3 className={`text-[28px] md:text-[40px] font-semibold leading-[1.15] mb-4 ${step.titleClass}`}>
+            <h3 className={`text-2xl md:text-[30px] font-medium leading-[1.15] mb-3 ${step.titleClass}`}>
               {step.title}
             </h3>
-            <p className={`text-lg leading-relaxed mb-8 ${step.descClass}`}>{step.desc}</p>
-            <ul className="space-y-3">
+            <p className={`text-base leading-relaxed mb-6 ${step.descClass}`}>{step.desc}</p>
+            <ul className="space-y-2.5">
               {step.bullets.map((b) => (
                 <li key={b} className={`flex items-center gap-3 ${step.bulletClass}`}>
-                  <span className="w-5 h-5 rounded-full bg-current/15 flex items-center justify-center text-xs">
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="w-4 h-4 rounded-full bg-current/15 flex items-center justify-center text-xs">
+                    <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
-                  <span className="text-sm md:text-base">{b}</span>
+                  <span className="text-sm">{b}</span>
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Visual */}
-          <div className="flex-1 w-full max-w-md">{step.visual}</div>
+          <div className="flex-1 w-full max-w-sm">{step.visual}</div>
         </div>
       </motion.div>
     </div>
@@ -215,7 +215,7 @@ export default function Timeline() {
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
         {/* Press logos — running marquee */}
         <div className="flex items-center gap-8 mb-20">
-          <span className="text-sm font-semibold text-[#00174c] opacity-40 flex-shrink-0">
+          <span className="text-sm font-medium text-[#00174c] opacity-40 flex-shrink-0">
             Featured on:
           </span>
           <div className="group relative flex-1 overflow-hidden">
@@ -228,7 +228,7 @@ export default function Timeline() {
               {[...press, ...press].map((p, i) => (
                 <span
                   key={`${p}-${i}`}
-                  className="text-base font-bold text-[#00174c] tracking-tight grayscale whitespace-nowrap"
+                  className="text-base font-semibold text-[#00174c] tracking-tight grayscale whitespace-nowrap"
                 >
                   {p}
                 </span>
@@ -239,19 +239,19 @@ export default function Timeline() {
 
         {/* Heading */}
         <div className="text-center mb-16">
-          <p className="text-[#0053ce] text-sm font-semibold uppercase tracking-widest mb-3">
+          <p className="text-[#0053ce] text-sm font-medium uppercase tracking-widest mb-3">
             How it works
           </p>
-          <h2 className="text-[28px] md:text-[40px] font-semibold leading-[1.2] text-[#00174c]">
+          <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c]">
             Three steps to financial autopilot
           </h2>
         </div>
       </div>
 
       {/* Stacking cards */}
-      <div ref={containerRef} className="max-w-[1100px] mx-auto px-5 md:px-6 pb-[20vh]">
+      <div ref={containerRef} className="max-w-[940px] mx-auto px-5 md:px-6 pb-[15vh]">
         {steps.map((step, i) => (
-          <div key={step.n} className="h-[80vh] flex items-start">
+          <div key={step.n} className="h-[68vh] flex items-start">
             <StepCard step={step} i={i} total={steps.length} progress={scrollYProgress} />
           </div>
         ))}

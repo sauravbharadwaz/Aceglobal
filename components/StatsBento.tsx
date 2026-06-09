@@ -15,7 +15,7 @@ export default function StatsBento() {
                   {item.tags.map((t) => (
                     <span
                       key={t}
-                      className="bg-[#94a6fe]/20 text-[#243889] px-3 py-1 rounded-full text-xs font-bold"
+                      className="bg-[#94a6fe]/20 text-[#243889] px-3 py-1 rounded-full text-xs font-semibold"
                     >
                       {t}
                     </span>
@@ -23,9 +23,9 @@ export default function StatsBento() {
                 </div>
               )}
               {item.label && (
-                <p className="text-sm font-semibold text-[#0053ce] mb-2">{item.label}</p>
+                <p className="text-sm font-medium text-[#0053ce] mb-2">{item.label}</p>
               )}
-              <h3 className="text-4xl md:text-5xl font-bold text-[#00174c]">{item.value}</h3>
+              <h3 className="text-4xl md:text-5xl font-semibold text-[#00174c]">{item.value}</h3>
             </div>
           ))}
         </div>

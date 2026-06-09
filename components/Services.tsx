@@ -21,8 +21,8 @@ function BookkeepingMockup() {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#c2c6d8]/20">
       <div className="flex items-center justify-between mb-6">
-        <p className="text-sm font-semibold text-[#00174c]">Burn Rate — Last 6 Months</p>
-        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-semibold">On Track</span>
+        <p className="text-sm font-medium text-[#00174c]">Burn Rate — Last 6 Months</p>
+        <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-medium">On Track</span>
       </div>
       <div className="flex items-end gap-2 h-28 mb-6">
         {[
@@ -50,7 +50,7 @@ function BookkeepingMockup() {
         ].map((stat) => (
           <div key={stat.label} className="bg-[#f2f3ff] rounded-xl p-3">
             <p className="text-xs text-[#727687]">{stat.label}</p>
-            <p className="text-base font-bold text-[#00174c]">{stat.value}</p>
+            <p className="text-base font-semibold text-[#00174c]">{stat.value}</p>
           </div>
         ))}
       </div>
@@ -62,8 +62,8 @@ function TaxMockup() {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-6 border border-[#c2c6d8]/20">
       <div className="flex items-center justify-between mb-6">
-        <p className="text-sm font-semibold text-[#00174c]">Tax Filing Status</p>
-        <span className="text-xs bg-blue-100 text-[#0053ce] px-2 py-1 rounded-full font-semibold">All Filed ✓</span>
+        <p className="text-sm font-medium text-[#00174c]">Tax Filing Status</p>
+        <span className="text-xs bg-blue-100 text-[#0053ce] px-2 py-1 rounded-full font-medium">All Filed ✓</span>
       </div>
       {[
         { label: "Delaware Franchise Tax", date: "Mar 1", status: "Filed", ok: true },
@@ -78,7 +78,7 @@ function TaxMockup() {
             <p className="text-xs text-[#727687]">Due {row.date}</p>
           </div>
           <span
-            className={`text-xs rounded-full px-3 py-1 font-semibold ${
+            className={`text-xs rounded-full px-3 py-1 font-medium ${
               row.ok
                 ? "bg-green-100 text-green-700"
                 : "bg-yellow-100 text-yellow-700"
@@ -105,16 +105,16 @@ export default function Services() {
           >
             {/* Text */}
             <div className={`flex-1 ${s.reverse ? "order-2 md:order-2" : "order-2 md:order-1"}`}>
-              <span className={`inline-block px-4 py-1 rounded-full text-sm font-semibold mb-6 ${s.tagStyle}`}>
+              <span className={`inline-block px-4 py-1 rounded-full text-sm font-medium mb-6 ${s.tagStyle}`}>
                 {s.tag}
               </span>
-              <h3 className="text-[28px] md:text-[40px] font-semibold leading-[1.2] text-[#00174c] mb-6">
+              <h3 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] mb-6">
                 {s.title}
               </h3>
               <p className="text-lg text-[#727687] mb-8 leading-relaxed">{s.desc}</p>
               <a
                 href="#"
-                className="text-[#0053ce] font-semibold flex items-center gap-2 group text-sm"
+                className="text-[#0053ce] font-medium flex items-center gap-2 group text-sm"
               >
                 Learn More{" "}
                 <span className="group-hover:translate-x-1 transition-transform inline-block">→</span>

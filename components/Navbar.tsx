@@ -22,7 +22,7 @@ export default function Navbar() {
       <div className="flex justify-between items-center max-w-[1280px] mx-auto px-5 md:px-6 h-20">
         {/* Logo + nav links */}
         <div className="flex items-center gap-12">
-          <Link href="/" className="text-2xl font-bold text-[#00174c]">
+          <Link href="/" className="text-2xl font-semibold text-[#00174c]">
             Ace Global
           </Link>
           <div className="hidden md:flex gap-6">
@@ -40,10 +40,10 @@ export default function Navbar() {
 
         {/* CTAs */}
         <div className="flex items-center gap-6">
-          <Link href="#" className="hidden md:block text-[#0053ce] text-sm font-semibold hover:opacity-80 transition-opacity">
+          <Link href="#" className="hidden md:block text-[#0053ce] text-sm font-medium hover:opacity-80 transition-opacity">
             Sign in
           </Link>
-          <button className="bg-[#0053ce] text-white px-6 py-3 rounded-full text-sm font-semibold scale-95 active:scale-90 transition-transform shadow-lg shadow-[#0053ce]/20">
+          <button className="bg-[#0053ce] text-white px-6 py-3 rounded-full text-sm font-medium scale-95 active:scale-90 transition-transform shadow-lg shadow-[#0053ce]/20">
             Get started
           </button>
           {/* Mobile menu toggle */}

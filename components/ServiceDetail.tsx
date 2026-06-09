@@ -36,7 +36,7 @@ function MockupCard({ type }: { type: string }) {
     return (
       <div className="card-glass rounded-2xl p-6 w-full max-w-md mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <span className="text-white font-semibold">Monthly Report</span>
+          <span className="text-white font-medium">Monthly Report</span>
           <span className="text-xs text-green-400 bg-green-400/10 border border-green-400/20 rounded-full px-3 py-1">
             ✓ Closed
           </span>
@@ -50,7 +50,7 @@ function MockupCard({ type }: { type: string }) {
           ].map((row) => (
             <div key={row.label} className="flex justify-between items-center py-2 border-b border-white/5 last:border-0">
               <span className="text-slate-400 text-sm">{row.label}</span>
-              <span className={`font-semibold text-sm ${row.color}`}>{row.value}</span>
+              <span className={`font-medium text-sm ${row.color}`}>{row.value}</span>
             </div>
           ))}
         </div>
@@ -64,7 +64,7 @@ function MockupCard({ type }: { type: string }) {
   return (
     <div className="card-glass rounded-2xl p-6 w-full max-w-md mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <span className="text-white font-semibold">Tax Deadlines</span>
+        <span className="text-white font-medium">Tax Deadlines</span>
         <span className="text-xs text-indigo-400 bg-indigo-400/10 border border-indigo-400/20 rounded-full px-3 py-1">
           All on track
         </span>
@@ -108,10 +108,10 @@ export default function ServiceDetail() {
           >
             {/* Text */}
             <div className="flex-1">
-              <p className="text-indigo-400 text-sm font-semibold uppercase tracking-widest mb-3">
+              <p className="text-indigo-400 text-sm font-medium uppercase tracking-widest mb-3">
                 {d.tag}
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-semibold text-white mb-4 leading-tight">
                 {d.title}
               </h2>
               <p className="text-slate-400 text-lg leading-relaxed mb-8">{d.description}</p>
@@ -127,7 +127,7 @@ export default function ServiceDetail() {
               </ul>
               <a
                 href="#"
-                className="btn-primary inline-flex items-center gap-2 text-white font-semibold rounded-full px-6 py-3 text-sm"
+                className="btn-primary inline-flex items-center gap-2 text-white font-medium rounded-full px-6 py-3 text-sm"
               >
                 Get started
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

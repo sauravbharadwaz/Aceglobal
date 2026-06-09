@@ -61,10 +61,10 @@ export default function Testimonials() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <div>
-            <p className="text-indigo-400 text-sm font-semibold uppercase tracking-widest mb-3">
+            <p className="text-indigo-400 text-sm font-medium uppercase tracking-widest mb-3">
               Testimonials
             </p>
-            <h2 className="text-4xl md:text-5xl font-bold text-white">
+            <h2 className="text-4xl md:text-5xl font-semibold text-white">
               Loved by founders
             </h2>
           </div>
@@ -112,12 +112,12 @@ export default function Testimonials() {
               {/* Author */}
               <div className="flex items-center gap-3 pt-2 border-t border-white/10">
                 <div
-                  className={`w-9 h-9 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white text-xs font-bold shrink-0`}
+                  className={`w-9 h-9 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white text-xs font-semibold shrink-0`}
                 >
                   {t.initials}
                 </div>
                 <div>
-                  <p className="text-white text-sm font-semibold">{t.name}</p>
+                  <p className="text-white text-sm font-medium">{t.name}</p>
                   <p className="text-slate-500 text-xs">{t.role}</p>
                 </div>
               </div>
