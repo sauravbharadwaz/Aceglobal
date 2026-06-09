@@ -1,4 +1,56 @@
-const logos = ["Whatnot", "Karat", "Cursor", "Vanta", "Mercury", "Linear", "Notion", "Stripe"];
+// Generic monogram-style logo lockups (a simple mark + wordmark).
+// These are placeholders — drop official brand SVGs into /public/logos/
+// and swap the <Mark> for <img src="/logos/{slug}.svg" /> for production.
+const logos = [
+  { name: "Whatnot", mark: "circle" },
+  { name: "Karat", mark: "diamond" },
+  { name: "Cursor", mark: "square" },
+  { name: "Vanta", mark: "triangle" },
+  { name: "Mercury", mark: "circle" },
+  { name: "Linear", mark: "lines" },
+  { name: "Notion", mark: "square" },
+  { name: "Stripe", mark: "triangle" },
+] as const;
+
+type MarkType = (typeof logos)[number]["mark"];
+
+function Mark({ type }: { type: MarkType }) {
+  const common = "w-6 h-6 text-[#00174c]";
+  switch (type) {
+    case "circle":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+        </svg>
+      );
+    case "diamond":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2 22 12 12 22 2 12z" />
+        </svg>
+      );
+    case "square":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="4" y="4" width="16" height="16" rx="4" />
+        </svg>
+      );
+    case "triangle":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 3 22 20 2 20z" />
+        </svg>
+      );
+    case "lines":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="3" rx="1.5" />
+          <rect x="3" y="10.5" width="18" height="3" rx="1.5" />
+          <rect x="3" y="16" width="18" height="3" rx="1.5" />
+        </svg>
+      );
+  }
+}
 
 export default function TrustBar() {
   const doubled = [...logos, ...logos];
@@ -17,16 +69,19 @@ export default function TrustBar() {
         <div className="absolute right-0 top-0 bottom-0 w-24 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none" />
 
         <div
-          className="flex w-max items-center gap-24 opacity-60 grayscale"
+          className="flex w-max items-center gap-20 opacity-60 grayscale"
           style={{ animation: "marquee 28s linear infinite" }}
         >
-          {doubled.map((name, i) => (
-            <span
-              key={`${name}-${i}`}
-              className="text-lg font-semibold text-[#00174c] tracking-tight whitespace-nowrap"
+          {doubled.map((logo, i) => (
+            <div
+              key={`${logo.name}-${i}`}
+              className="flex items-center gap-2.5 whitespace-nowrap"
             >
-              {name}
-            </span>
+              <Mark type={logo.mark} />
+              <span className="text-lg font-semibold text-[#00174c] tracking-tight">
+                {logo.name}
+              </span>
+            </div>
           ))}
         </div>
       </div>
