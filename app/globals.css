@@ -92,6 +92,15 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* Prevent stray horizontal scroll on mobile.
+   `clip` (not `hidden`) avoids creating a scroll container, so the
+   Timeline's position:sticky stacking keeps working. */
+html,
+body {
+  overflow-x: clip;
+  max-width: 100%;
+}
+
 body {
   background-color: #faf8ff;
   color: #00174c;

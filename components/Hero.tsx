@@ -20,23 +20,23 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-[40px] md:text-[60px] font-semibold leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-6">
+        <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-semibold leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
           Your startup&apos;s books &amp; taxes —{" "}
           <span className="text-[#0053ce]">completely off your plate.</span>
         </h1>
 
         {/* Subheadline */}
-        <p className="text-lg leading-relaxed text-[#727687] max-w-2xl mx-auto mb-12">
+        <p className="text-base md:text-lg leading-relaxed text-[#727687] max-w-2xl mx-auto mb-8 md:mb-12">
           Ace Global is the all-in-one accounting platform that combines expert CPAs with powerful
           software to handle everything for you.
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col md:flex-row gap-4 justify-center">
-          <button className="bg-[#0053ce] text-white px-8 py-4 rounded-full font-medium text-lg hover:bg-[#0053ce]/90 transition-all shadow-xl shadow-[#0053ce]/25">
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
+          <button className="bg-[#0053ce] text-white px-6 md:px-8 py-2.5 md:py-4 rounded-full font-medium text-sm md:text-lg hover:bg-[#0053ce]/90 transition-all shadow-xl shadow-[#0053ce]/25">
             Get started
           </button>
-          <button className="bg-[#94a6fe] text-[#243889] px-8 py-4 rounded-full font-medium text-lg hover:bg-[#94a6fe]/80 transition-all">
+          <button className="bg-[#94a6fe] text-[#243889] px-6 md:px-8 py-2.5 md:py-4 rounded-full font-medium text-sm md:text-lg hover:bg-[#94a6fe]/80 transition-all">
             Book a demo
           </button>
         </div>
