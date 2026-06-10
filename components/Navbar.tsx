@@ -19,23 +19,23 @@ export default function Navbar() {
         scrolled ? "shadow-[0px_4px_20px_rgba(15,38,120,0.08)] shadow-xl" : "shadow-[0px_4px_20px_rgba(15,38,120,0.08)]"
       }`}
     >
-      <div className="flex justify-between items-center max-w-[1280px] mx-auto px-5 md:px-6 h-20">
-        {/* Logo + nav links */}
-        <div className="flex items-center gap-12">
-          <Link href="/" className="text-2xl font-semibold text-[#00174c]">
-            Ace Global
-          </Link>
-          <div className="hidden md:flex gap-6">
-            {["Platform", "Resources", "Community", "Pricing", "Book a demo"].map((item) => (
-              <Link
-                key={item}
-                href="#"
-                className="text-[#00174c] text-sm hover:text-[#0053ce] transition-colors duration-200"
-              >
-                {item}
-              </Link>
-            ))}
-          </div>
+      <div className="relative flex justify-between items-center max-w-[1280px] mx-auto px-5 md:px-6 h-20">
+        {/* Logo */}
+        <Link href="/" className="text-2xl font-semibold text-[#00174c]">
+          Ace Global
+        </Link>
+
+        {/* Nav links — centered in the header */}
+        <div className="hidden md:flex gap-6 absolute left-1/2 -translate-x-1/2">
+          {["Platform", "Resources", "Community", "Pricing", "Book a demo"].map((item) => (
+            <Link
+              key={item}
+              href="#"
+              className="text-[#00174c] text-sm hover:text-[#0053ce] transition-colors duration-200 whitespace-nowrap"
+            >
+              {item}
+            </Link>
+          ))}
         </div>
 
         {/* CTAs */}
