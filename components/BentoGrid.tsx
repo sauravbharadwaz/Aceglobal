@@ -1,3 +1,5 @@
+import CountUp from "./CountUp";
+
 export default function BentoGrid() {
   return (
     <section className="py-16 md:py-[120px] bg-[#f2f3ff]">
@@ -43,7 +45,12 @@ export default function BentoGrid() {
                 Total deductions identified for our founders.
               </p>
             </div>
-            <div className="text-5xl font-semibold mt-8 relative z-10 tabular-nums">$104,289,301</div>
+            <CountUp
+              value={104289301}
+              prefix="$"
+              duration={2200}
+              className="text-5xl font-semibold mt-8 relative z-10 tabular-nums block"
+            />
             <div className="absolute bottom-0 right-0 opacity-20 w-full pointer-events-none">
               <svg viewBox="0 0 400 200" className="w-full">
                 <path d="M0,150 Q100,100 200,120 T400,50 L400,200 L0,200 Z" fill="white" />
