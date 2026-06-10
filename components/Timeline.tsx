@@ -3,7 +3,56 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 
-const press = ["TechCrunch", "Forbes", "WSJ", "Fast Company", "Bloomberg"];
+// Generic monogram-style lockups (mark + wordmark). These are placeholders —
+// drop official press SVGs into /public/logos/ and swap <PressMark> for an
+// <img> for production.
+const press = [
+  { name: "TechCrunch", mark: "circle" },
+  { name: "Forbes", mark: "square" },
+  { name: "WSJ", mark: "lines" },
+  { name: "Fast Company", mark: "triangle" },
+  { name: "Bloomberg", mark: "diamond" },
+] as const;
+
+type PressMarkType = (typeof press)[number]["mark"];
+
+function PressMark({ type }: { type: PressMarkType }) {
+  const common = "w-5 h-5 text-[#00174c]";
+  switch (type) {
+    case "circle":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <circle cx="12" cy="12" r="9" />
+        </svg>
+      );
+    case "square":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="4" y="4" width="16" height="16" rx="4" />
+        </svg>
+      );
+    case "lines":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="3" rx="1.5" />
+          <rect x="3" y="10.5" width="18" height="3" rx="1.5" />
+          <rect x="3" y="16" width="18" height="3" rx="1.5" />
+        </svg>
+      );
+    case "triangle":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 3 22 20 2 20z" />
+        </svg>
+      );
+    case "diamond":
+      return (
+        <svg className={common} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2 22 12 12 22 2 12z" />
+        </svg>
+      );
+  }
+}
 
 type Step = {
   n: string;
@@ -222,16 +271,19 @@ export default function Timeline() {
             <div className="absolute left-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-r from-white to-transparent pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-16 z-10 bg-gradient-to-l from-white to-transparent pointer-events-none" />
             <div
-              className="flex w-max items-center gap-16 opacity-40"
+              className="flex w-max items-center gap-14 opacity-70"
               style={{ animation: "marquee 26s linear infinite" }}
             >
               {[...press, ...press].map((p, i) => (
-                <span
-                  key={`${p}-${i}`}
-                  className="text-base font-semibold text-[#00174c] tracking-tight grayscale whitespace-nowrap"
+                <div
+                  key={`${p.name}-${i}`}
+                  className="flex items-center gap-2.5 whitespace-nowrap"
                 >
-                  {p}
-                </span>
+                  <PressMark type={p.mark} />
+                  <span className="text-xl font-semibold text-[#00174c] tracking-tight">
+                    {p.name}
+                  </span>
+                </div>
               ))}
             </div>
           </div>
