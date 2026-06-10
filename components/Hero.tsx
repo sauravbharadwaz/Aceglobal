@@ -20,7 +20,7 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-semibold leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
+        <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-medium leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
           Your startup&apos;s books &amp; taxes —{" "}
           <span className="text-[#0053ce]">completely off your plate.</span>
         </h1>
