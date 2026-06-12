@@ -174,8 +174,8 @@ const steps: Step[] = [
   {
     n: "2",
     title: "Switch to Autopilot",
-    desc: "Your dedicated CPA team handles your monthly books and tax filings. You just watch the dashboard while everything runs on its own.",
-    bullets: ["Dedicated CPA team", "Monthly books & filings", "Real-time dashboard"],
+    desc: "Your CPA team manages your books and filings. Your AI agent explains your numbers in real time, so you can ask, learn, and stay in control without doing the work.",
+    bullets: ["Dedicated CPA team", "Monthly books & filings", "Ask your AI agent"],
     cardClass: "bg-[#0053ce]",
     titleClass: "text-white",
     descClass: "text-white/80",
