@@ -24,7 +24,7 @@ export default function TestimonialCards() {
     <section className="py-16 md:py-[120px] bg-white overflow-x-auto">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
         <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] mb-12">
-          Saving startups real money
+          Saving small business owners real money
         </h2>
         <div className="flex gap-8 pb-8">
           {cards.map((c) => (
