@@ -55,9 +55,13 @@ export default function Footer() {
         {/* Newsletter + AI summary card */}
         <div className="bg-white/[0.06] rounded-3xl p-8 md:p-10 flex flex-col lg:flex-row lg:items-center gap-8 justify-between">
           <div className="flex-1">
-            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-6">
+            <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3">
               Join our newsletter
             </h3>
+            <p className="text-[#dbe1ff]/70 text-sm mb-6 max-w-md">
+              Get practical tax, bookkeeping, payroll, and compliance tips for small business
+              owners.
+            </p>
             <div className="flex flex-col sm:flex-row gap-3 max-w-md">
               <input
                 type="email"
@@ -103,7 +107,7 @@ export default function Footer() {
             </Link>
             <span className="hidden sm:block w-px h-10 bg-white/20" />
             <p className="text-[#dbe1ff]/70 text-base">
-              Startup bookkeeping &amp; tax automation
+              Bookkeeping, tax, payroll, and compliance for small businesses
             </p>
             <div className="sm:ml-auto">
               <span className="inline-flex items-center gap-2 border border-green-400/50 text-[#00174c] rounded-lg px-4 py-2.5 text-sm bg-white">
@@ -139,10 +143,10 @@ export default function Footer() {
           {/* Col 1 */}
           <div className="flex flex-col gap-5">
             <LinkCard
-              title="For Startups"
-              items={["Bookkeeping", "Corporate Taxes", "TaxPass", "Pricing"]}
+              title="For Small Businesses"
+              items={["Bookkeeping", "Business Taxes", "Payroll", "TaxPass", "Pricing"]}
             />
-            <LinkCard title="For Accountants" items={["Partner Program"]} />
+            <LinkCard title="For Accountants" items={["Partner Program", "Client Support"]} />
           </div>
 
           {/* Col 2 */}
@@ -150,36 +154,60 @@ export default function Footer() {
             <LinkCard
               title="Free Tools"
               items={[
-                "Deadline alerts",
+                "Tax deadline alerts",
                 "Delaware Franchise Tax calculator",
+                "Sales tax calculator",
+                "Payroll tax calculator",
                 "Runway calculator",
                 "Burn rate calculator",
               ]}
             />
+            <LinkCard title="Company" items={["About Us", "Careers", "Contact"]} />
           </div>
 
           {/* Col 3 */}
           <div className="flex flex-col gap-5">
             <LinkCard
               title="Integrations"
-              items={["QuickBooks", "Stripe", "Mercury", "Brex"]}
+              items={[
+                "QuickBooks",
+                "Xero",
+                "Stripe",
+                "Gusto",
+                "Square",
+                "Shopify",
+                "Bank Accounts",
+                "Credit Cards",
+                "Payroll Systems",
+                "Payment Processors",
+              ]}
             />
-            <LinkCard title="Community" items={["Events", "Blog", "Founder Journal"]} />
           </div>
 
           {/* Col 4 */}
           <div className="flex flex-col gap-5">
-            <LinkCard title="Company" items={["About Us", "Careers", "Contact"]} />
+            <LinkCard
+              title="Resources"
+              items={["Events", "Blog", "Small Business Guides", "Owner Journal"]}
+            />
             <LinkCard title="Support" items={["Help Center", "Privacy", "Terms"]} />
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-6 flex flex-col md:flex-row justify-between items-center gap-3">
-          <p className="text-[#dbe1ff]/40 text-xs">
-            © {new Date().getFullYear()} Ace Global. All rights reserved.
+        <div className="pt-6 space-y-3">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+            <p className="text-[#dbe1ff]/40 text-xs">
+              © {new Date().getFullYear()} Ace Global. All rights reserved.
+            </p>
+            <p className="text-[#dbe1ff]/40 text-xs">
+              Books, taxes, payroll, and compliance — handled for small businesses.
+            </p>
+          </div>
+          <p className="text-[#dbe1ff]/30 text-xs text-center">
+            Built for small business owners who want clean books, timely taxes, and fewer
+            surprises.
           </p>
-          <p className="text-[#dbe1ff]/40 text-xs">Made for founders, by founders.</p>
         </div>
       </div>
     </footer>
