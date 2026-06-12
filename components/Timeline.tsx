@@ -186,8 +186,8 @@ const steps: Step[] = [
   {
     n: "3",
     title: "Back to Building",
-    desc: "Focus on your product and customers. We'll notify you the moment taxes are filed and your books are closed — nothing else needed.",
-    bullets: ["Zero day-to-day finance work", "Proactive notifications", "More time to build"],
+    desc: "Focus on your product, customers, and growth. Your CPA team and AI agent handle the finance workflow in the background and notify you the moment your books are closed or taxes are filed.",
+    bullets: ["Zero day-to-day finance work", "Proactive alerts from your AI agent", "More time to build"],
     cardClass: "bg-[#172d65]",
     titleClass: "text-white",
     descClass: "text-[#dbe1ff]/80",
