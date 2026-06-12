@@ -2,8 +2,8 @@ const services = [
   {
     tag: "Bookkeeping",
     tagStyle: "bg-[#D6F5E3] text-[#1A7A44]",
-    title: "Real-time accounting you can actually trust.",
-    desc: "No more waiting weeks for month-end reports. Get real-time visibility into your burn, runway, and cash flow.",
+    title: "Real-time books you can actually trust.",
+    desc: "Your books stay continuously updated across banks, Stripe, and business systems — giving you live visibility into burn, runway, cash flow, and what needs attention.",
     reverse: false,
     mockup: "bookkeeping",
   },
