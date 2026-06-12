@@ -22,10 +22,9 @@ export default function RotatingWord({
 
   return (
     <span className={`relative inline-block overflow-hidden align-bottom ${className}`}>
-      {/* Invisible longest word reserves width so the heading doesn't jump */}
-      <span className="invisible whitespace-nowrap">
-        {words.reduce((a, b) => (a.length >= b.length ? a : b))}
-      </span>
+      {/* Invisible copy of the current word sizes the box so the gap always
+          matches the visible word */}
+      <span className="invisible whitespace-nowrap">{words[index]}</span>
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
           key={words[index]}
