@@ -37,16 +37,16 @@ export default function BentoGrid() {
             </div>
           </div>
 
-          {/* $100M+ Saved */}
+          {/* $1M+ Saved */}
           <div className="md:col-span-5 bg-[#0053ce] p-8 rounded-3xl shadow-lg flex flex-col justify-between text-white relative overflow-hidden">
             <div className="relative z-10">
-              <h3 className="text-2xl font-medium mb-2">$100M+ Saved</h3>
+              <h3 className="text-2xl font-medium mb-2">$1M+ Saved</h3>
               <p className="opacity-80">
-                Total deductions identified for our founders.
+                Total deductions identified for our business owners.
               </p>
             </div>
             <CountUp
-              value={104289301}
+              value={1138403}
               prefix="$"
               duration={2200}
               className="text-5xl font-semibold mt-8 relative z-10 tabular-nums block"

@@ -7,7 +7,7 @@ export default function StatsBento() {
             { label: "Established", value: "Since 2019", accent: true },
             { label: null, value: "Expert Accountants", tags: ["CPA", "Tax Expert"] },
             { label: "Volume Processed", value: "$8B+ Transactions", accent: true },
-            { label: "Founder Benefit", value: "$100M+ Tax Savings", accent: true },
+            { label: "Founder Benefit", value: "$1M+ Tax Savings", accent: true },
           ].map((item, i) => (
             <div key={i} className="bg-white rounded-2xl p-6 flex flex-col justify-center">
               {item.tags && (

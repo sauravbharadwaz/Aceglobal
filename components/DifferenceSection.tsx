@@ -42,7 +42,7 @@ function AutopilotCard() {
         <div className="flex items-center justify-between mb-4">
           <span className="text-sm font-semibold text-[#00174c]">Cash Balance</span>
           <span className="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-semibold">
-            $100M+
+            $1M+
           </span>
         </div>
         <svg viewBox="0 0 300 90" className="w-full" preserveAspectRatio="none">
