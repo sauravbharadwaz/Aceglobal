@@ -63,7 +63,9 @@ export default function BentoGrid() {
             <div className="flex-1">
               <h3 className="text-2xl font-medium mb-2">Bookkeeping on Autopilot</h3>
               <p className="text-[#dbe1ff]/60">
-                Real-time sync with Mercury, Brex, and Stripe. No more end-of-month surprises.
+                Real-time sync across bank accounts, Stripe, and business systems — giving your AI
+                finance agents live context to monitor cash flow, detect exceptions, and prevent
+                month-end surprises.
               </p>
               <button className="mt-6 flex items-center gap-2 text-[#b2c5ff] hover:gap-4 transition-all font-medium text-sm">
                 Learn how →
