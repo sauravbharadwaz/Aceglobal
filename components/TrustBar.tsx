@@ -1,15 +1,13 @@
-// Generic monogram-style logo lockups (a simple mark + wordmark).
-// These are placeholders — drop official brand SVGs into /public/logos/
-// and swap the <Mark> for <img src="/logos/{slug}.svg" /> for production.
+// Monogram-style logo lockups (a simple mark + wordmark) for Ace Global's
+// clients. Drop each client's official logo file into /public/logos/ and
+// swap the <Mark> for <img src="/logos/{slug}.svg" /> when available.
 const logos = [
-  { name: "Whatnot", mark: "circle" },
-  { name: "Karat", mark: "diamond" },
-  { name: "Cursor", mark: "square" },
-  { name: "Vanta", mark: "triangle" },
-  { name: "Mercury", mark: "circle" },
-  { name: "Linear", mark: "lines" },
-  { name: "Notion", mark: "square" },
-  { name: "Stripe", mark: "triangle" },
+  { name: "Heather CPA Firm", mark: "circle", badge: null },
+  { name: "Varadhi Firms", mark: "diamond", badge: null },
+  { name: "Radio Surabhi", mark: "lines", badge: null },
+  { name: "Urban Systems", mark: "square", badge: null },
+  { name: "iNRI", mark: "triangle", badge: "Backed by Y Combinator" },
+  { name: "Indian Eagle", mark: "circle", badge: null },
 ] as const;
 
 type MarkType = (typeof logos)[number]["mark"];
@@ -58,7 +56,7 @@ export default function TrustBar() {
     <section className="py-16 bg-white">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
         <p className="text-center text-xs font-medium text-[#c2c6d8] mb-10 tracking-widest uppercase">
-          We&apos;ve helped thousands of startups save $100M+
+          Trusted by growing businesses
         </p>
       </div>
 
@@ -81,6 +79,11 @@ export default function TrustBar() {
               <span className="text-lg font-semibold text-[#00174c] tracking-tight">
                 {logo.name}
               </span>
+              {logo.badge && (
+                <span className="text-[11px] font-medium text-[#727687] border border-[#c2c6d8]/60 rounded-full px-2.5 py-0.5">
+                  {logo.badge}
+                </span>
+              )}
             </div>
           ))}
         </div>
