@@ -166,7 +166,7 @@ export default function DifferenceSection() {
           <PhotoCard
             src="/team-smile.webp"
             name="Real human experts"
-            role="On your team, on Slack"
+            role="On your WhatsApp or iMessage"
             bg="bg-[#ebedff]"
           />
           <TestimonialCard />

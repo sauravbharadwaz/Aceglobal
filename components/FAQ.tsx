@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: "How do you communicate with clients?",
-    a: "We set up a dedicated Slack channel for every client. Your accountant is available during business hours and typically responds within a few hours.",
+    a: "We connect with you on WhatsApp or iMessage — whichever you prefer. Your accountant is available during business hours and typically responds within a few hours.",
   },
 ];
 
