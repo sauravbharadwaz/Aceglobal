@@ -8,10 +8,10 @@ const services = [
     mockup: "bookkeeping",
   },
   {
-    tag: "TaxPass",
+    tag: "Corporate Tax",
     tagStyle: "bg-[#0053ce]/10 text-[#0053ce]",
-    title: "Corporate taxes handled. Federal & State.",
-    desc: "From Delaware Franchise Tax to complex multi-state filings, we ensure you stay compliant without lifting a finger.",
+    title: "Federal and state taxes handled end to end.",
+    desc: "From Delaware Franchise Tax to complex multi-state filings, your CPA team and AI agent keep your company compliant, track deadlines, and surface what needs attention — without you chasing forms or notices.",
     reverse: true,
     mockup: "taxes",
   },
