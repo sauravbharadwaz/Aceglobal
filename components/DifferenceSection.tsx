@@ -5,19 +5,21 @@ function PhotoCard({
   role,
   bg,
   objectPos = "object-top",
+  imgClass = "",
 }: {
   src: string;
   name: string;
   role: string;
   bg: string;
   objectPos?: string;
+  imgClass?: string;
 }) {
   return (
     <div className={`relative rounded-3xl overflow-hidden h-[380px] md:h-[440px] ${bg}`}>
       <img
         src={src}
         alt={name}
-        className={`absolute inset-0 w-full h-full object-cover ${objectPos}`}
+        className={`absolute inset-0 w-full h-full object-cover ${objectPos} ${imgClass}`}
       />
       {/* light fade so the dark text stays readable */}
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/90 via-white/35 to-transparent" />
@@ -136,6 +138,7 @@ export default function DifferenceSection() {
             name="David Z."
             role="15+ years of experience"
             bg="bg-[#ebedff]"
+            imgClass="scale-[1.2] origin-[50%_15%]"
           />
           <PhotoCard
             src="/team-anil.webp"
