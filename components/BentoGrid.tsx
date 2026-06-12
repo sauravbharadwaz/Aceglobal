@@ -12,7 +12,6 @@ export default function BentoGrid() {
             words={["startups", "small businesses", "CPA firms", "agencies", "founders"]}
             className="text-[#0053ce]"
           />
-          .
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:h-[620px]">
