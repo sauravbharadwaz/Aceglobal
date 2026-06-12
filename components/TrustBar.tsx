@@ -56,7 +56,7 @@ export default function TrustBar() {
     <section className="py-16 bg-white">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
         <p className="text-center text-xs font-medium text-[#c2c6d8] mb-10 tracking-widest uppercase">
-          Trusted by growing businesses
+          We&apos;ve helped thousands of startups manage bookkeeping, taxes and more
         </p>
       </div>
 
