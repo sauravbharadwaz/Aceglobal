@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
+import CountUp from "@/components/CountUp";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
@@ -104,6 +105,98 @@ export default function BookkeepingPage() {
               <button className="bg-[#94a6fe] text-[#243889] px-6 md:px-8 py-2.5 md:py-4 rounded-full font-medium text-sm md:text-lg hover:bg-[#94a6fe]/80 transition-all">
                 Book a demo
               </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Bento grid */}
+        <section className="py-16 md:py-[120px] bg-[#f2f3ff]">
+          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] tracking-[-0.01em] text-[#00174c] text-center mb-12">
+              Bookkeeping that runs itself.
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:h-[620px]">
+              {/* Dedicated team */}
+              <div className="md:col-span-7 bg-white p-8 rounded-3xl shadow-sm border border-[#c2c6d8]/20 flex flex-col justify-between overflow-hidden group">
+                <div>
+                  <h3 className="text-2xl font-medium text-[#00174c] mb-2">
+                    Your dedicated bookkeeping team
+                  </h3>
+                  <p className="text-[#727687]">
+                    Real bookkeepers backed by CPAs who learn how your business runs — categorizing
+                    transactions, reconciling accounts, and closing your books on schedule.
+                  </p>
+                </div>
+                <div className="mt-8 flex gap-4 transition-transform duration-500 group-hover:translate-x-2">
+                  {["/avatar-1.webp", "/avatar-2.webp", "/avatar-3.webp"].map((src) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt="Bookkeeper"
+                      className="w-16 h-16 rounded-full object-cover border-4 border-[#ebedff]"
+                    />
+                  ))}
+                  <div className="w-16 h-16 rounded-full bg-[#0053ce]/10 flex items-center justify-center text-[#0053ce] font-semibold text-sm">
+                    +12
+                  </div>
+                </div>
+              </div>
+
+              {/* Volume stat */}
+              <div className="md:col-span-5 bg-[#0053ce] p-8 rounded-3xl shadow-lg flex flex-col justify-between text-white relative overflow-hidden">
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-medium mb-2">$1B+ Categorized</h3>
+                  <p className="opacity-80">
+                    Transactions reconciled across client accounts every year.
+                  </p>
+                </div>
+                <CountUp
+                  value={1204889310}
+                  prefix="$"
+                  duration={2200}
+                  className="text-5xl font-semibold mt-8 relative z-10 tabular-nums block"
+                />
+                <div className="absolute bottom-0 right-0 opacity-20 w-full pointer-events-none">
+                  <svg viewBox="0 0 400 200" className="w-full">
+                    <path d="M0,150 Q100,100 200,120 T400,50 L400,200 L0,200 Z" fill="white" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Autopilot wide card */}
+              <div className="md:col-span-12 bg-[#172d65] text-white p-8 rounded-3xl shadow-sm flex flex-col md:flex-row items-center gap-8 group">
+                <div className="flex-1">
+                  <h3 className="text-2xl font-medium mb-2">Reconciliation on autopilot</h3>
+                  <p className="text-[#dbe1ff]/60">
+                    Every bank account, card, and payout syncs in real time. Your books stay current
+                    between closes — no end-of-month scramble.
+                  </p>
+                </div>
+                <div className="w-full md:w-80 bg-white/10 rounded-2xl p-5 group-hover:scale-[1.02] transition-transform">
+                  <p className="text-xs font-medium text-[#b2c5ff] mb-3 uppercase tracking-wider">
+                    Recent Activity
+                  </p>
+                  {[
+                    { name: "Bank feed synced", note: "412 transactions", ok: true },
+                    { name: "Card statements matched", note: "98% auto-categorized", ok: true },
+                    { name: "May books closed", note: "Reviewed by CPA", ok: true },
+                  ].map((row) => (
+                    <div
+                      key={row.name}
+                      className="flex justify-between items-center py-2 border-b border-white/10 last:border-0"
+                    >
+                      <div>
+                        <p className="text-sm text-white">{row.name}</p>
+                        <span className="text-[10px] bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full font-medium">
+                          {row.note}
+                        </span>
+                      </div>
+                      <span className="text-green-300 text-sm">✓</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>

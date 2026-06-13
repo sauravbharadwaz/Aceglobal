@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
+import CountUp from "@/components/CountUp";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
@@ -111,6 +112,98 @@ export default function CorporateTaxesPage() {
               <button className="bg-[#94a6fe] text-[#243889] px-6 md:px-8 py-2.5 md:py-4 rounded-full font-medium text-sm md:text-lg hover:bg-[#94a6fe]/80 transition-all">
                 Book a demo
               </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Bento grid */}
+        <section className="py-16 md:py-[120px] bg-[#f2f3ff]">
+          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] tracking-[-0.01em] text-[#00174c] text-center mb-12">
+              Taxes handled, deadlines covered.
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:h-[620px]">
+              {/* Tax experts */}
+              <div className="md:col-span-7 bg-white p-8 rounded-3xl shadow-sm border border-[#c2c6d8]/20 flex flex-col justify-between overflow-hidden group">
+                <div>
+                  <h3 className="text-2xl font-medium text-[#00174c] mb-2">
+                    Dedicated tax experts
+                  </h3>
+                  <p className="text-[#727687]">
+                    CPAs and EAs who handle federal, state, and franchise filings — from single-state
+                    LLCs to complex multi-state C-Corps. They prepare, review, and file every return.
+                  </p>
+                </div>
+                <div className="mt-8 flex gap-4 transition-transform duration-500 group-hover:translate-x-2">
+                  {["/avatar-2.webp", "/avatar-3.webp", "/avatar-1.webp"].map((src) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt="Tax expert"
+                      className="w-16 h-16 rounded-full object-cover border-4 border-[#ebedff]"
+                    />
+                  ))}
+                  <div className="w-16 h-16 rounded-full bg-[#0053ce]/10 flex items-center justify-center text-[#0053ce] font-semibold text-sm">
+                    +9
+                  </div>
+                </div>
+              </div>
+
+              {/* Penalties avoided stat */}
+              <div className="md:col-span-5 bg-[#0053ce] p-8 rounded-3xl shadow-lg flex flex-col justify-between text-white relative overflow-hidden">
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-medium mb-2">$2M+ Avoided</h3>
+                  <p className="opacity-80">
+                    Penalties and interest avoided by filing on time, every time.
+                  </p>
+                </div>
+                <CountUp
+                  value={2140500}
+                  prefix="$"
+                  duration={2200}
+                  className="text-5xl font-semibold mt-8 relative z-10 tabular-nums block"
+                />
+                <div className="absolute bottom-0 right-0 opacity-20 w-full pointer-events-none">
+                  <svg viewBox="0 0 400 200" className="w-full">
+                    <path d="M0,150 Q100,100 200,120 T400,50 L400,200 L0,200 Z" fill="white" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Filing autopilot wide card */}
+              <div className="md:col-span-12 bg-[#172d65] text-white p-8 rounded-3xl shadow-sm flex flex-col md:flex-row items-center gap-8 group">
+                <div className="flex-1">
+                  <h3 className="text-2xl font-medium mb-2">Filings on autopilot</h3>
+                  <p className="text-[#dbe1ff]/60">
+                    Your AI agent tracks every federal and state deadline, collects what's needed
+                    ahead of time, and confirms each return the moment it's filed.
+                  </p>
+                </div>
+                <div className="w-full md:w-80 bg-white/10 rounded-2xl p-5 group-hover:scale-[1.02] transition-transform">
+                  <p className="text-xs font-medium text-[#b2c5ff] mb-3 uppercase tracking-wider">
+                    Upcoming Deadlines
+                  </p>
+                  {[
+                    { name: "Delaware Franchise Tax", note: "Filed · Mar 1" },
+                    { name: "Federal Corp. Tax (1120)", note: "Filed · Apr 15" },
+                    { name: "Q3 Estimated Tax", note: "Prepared · Sep 15" },
+                  ].map((row) => (
+                    <div
+                      key={row.name}
+                      className="flex justify-between items-center py-2 border-b border-white/10 last:border-0"
+                    >
+                      <div>
+                        <p className="text-sm text-white">{row.name}</p>
+                        <span className="text-[10px] bg-blue-500/20 text-[#b2c5ff] px-2 py-0.5 rounded-full font-medium">
+                          {row.note}
+                        </span>
+                      </div>
+                      <span className="text-green-300 text-sm">✓</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
