@@ -98,13 +98,67 @@ export default function BookkeepingPage() {
               A dedicated CPA-led team keeps your books continuously updated across banks, Stripe,
               and business systems — so you always know your burn, runway, and cash flow.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center mb-16">
               <button className="bg-[#0053ce] text-white px-6 md:px-8 py-2.5 md:py-4 rounded-full font-medium text-sm md:text-lg hover:bg-[#0053ce]/90 transition-all shadow-xl shadow-[#0053ce]/25">
                 Get started
               </button>
               <button className="bg-[#94a6fe] text-[#243889] px-6 md:px-8 py-2.5 md:py-4 rounded-full font-medium text-sm md:text-lg hover:bg-[#94a6fe]/80 transition-all">
                 Book a demo
               </button>
+            </div>
+
+            {/* Hero dashboard visual */}
+            <div className="relative max-w-5xl mx-auto">
+              <div className="absolute -inset-4 bg-[#0053ce]/5 blur-3xl rounded-full pointer-events-none" />
+              <img
+                src="/bookkeeping-hero.webp"
+                alt="Ace Global bookkeeping dashboard"
+                className="relative w-full rounded-3xl shadow-2xl border border-[#c2c6d8]/30 animate-float"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Metric cards trio */}
+        <section className="py-16 md:py-24 bg-white">
+          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] text-center mb-12 max-w-2xl mx-auto">
+              The numbers that matter, ready at every close.
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  label: "Runway",
+                  value: "18 months",
+                  desc: "Always know how much time you have before you need to raise or cut.",
+                  sub: "Healthy",
+                  subColor: "text-green-600",
+                },
+                {
+                  label: "Profit & Loss",
+                  value: "+$35,350",
+                  desc: "Clear performance every month — revenue, expenses, and net income.",
+                  sub: "Net income · June",
+                  subColor: "text-[#727687]",
+                },
+                {
+                  label: "Balance Sheet",
+                  value: "$142,000",
+                  desc: "Investor-ready statements that hold up with lenders and the IRS.",
+                  sub: "Cash balance",
+                  subColor: "text-[#727687]",
+                },
+              ].map((m) => (
+                <div
+                  key={m.label}
+                  className="bg-[#f2f3ff] rounded-3xl p-8 flex flex-col"
+                >
+                  <p className="text-sm font-medium text-[#0053ce] mb-3">{m.label}</p>
+                  <p className="text-4xl font-semibold text-[#00174c] mb-1">{m.value}</p>
+                  <p className={`text-sm font-medium mb-5 ${m.subColor}`}>{m.sub}</p>
+                  <p className="text-[#727687] text-sm leading-relaxed">{m.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -245,6 +299,121 @@ export default function BookkeepingPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </section>
+
+        {/* Comparison table */}
+        <section className="py-16 md:py-[120px] bg-white">
+          <div className="max-w-[1100px] mx-auto px-5 md:px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] mb-3">
+                Ace Global vs. the alternatives
+              </h2>
+              <p className="text-[#727687] text-lg">
+                A modern accounting team vs. the old way of doing books.
+              </p>
+            </div>
+
+            <div className="overflow-hidden rounded-3xl border border-[#c2c6d8]/30 shadow-sm">
+              <div className="grid grid-cols-4 bg-[#172d65] text-white text-sm font-medium">
+                <div className="p-4 md:p-5" />
+                <div className="p-4 md:p-5 text-center bg-[#0053ce] rounded-tl-2xl">Ace Global</div>
+                <div className="p-4 md:p-5 text-center text-[#dbe1ff]/80">Local CPA firm</div>
+                <div className="p-4 md:p-5 text-center text-[#dbe1ff]/80">DIY spreadsheets</div>
+              </div>
+              {[
+                ["All-inclusive pricing", true, false, false],
+                ["Real-time finance dashboard", true, false, false],
+                ["AI agent on WhatsApp/iMessage", true, false, false],
+                ["Monthly, quarterly, or annual close", true, true, false],
+                ["Dedicated bookkeeper + CPA", true, true, false],
+                ["Quick onboarding", true, false, false],
+                ["No long-term contracts", true, false, true],
+                ["Investor-ready statements", true, true, false],
+              ].map((row, i) => (
+                <div
+                  key={row[0] as string}
+                  className={`grid grid-cols-4 text-sm ${i % 2 ? "bg-[#f2f3ff]" : "bg-white"}`}
+                >
+                  <div className="p-4 md:p-5 text-[#00174c] font-medium">{row[0]}</div>
+                  {[row[1], row[2], row[3]].map((v, j) => (
+                    <div key={j} className="p-4 md:p-5 flex items-center justify-center">
+                      {v ? (
+                        <span className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </span>
+                      ) : (
+                        <span className="w-6 h-6 rounded-full bg-[#c2c6d8]/30 flex items-center justify-center text-[#727687]">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials strip */}
+        <section className="py-16 md:py-[120px] bg-[#f2f3ff]">
+          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] tracking-[-0.01em] text-[#00174c] text-center mb-12 max-w-2xl mx-auto">
+              &ldquo;Clean books, every month, without me chasing anyone.&rdquo;
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  quote:
+                    "Onboarding was effortless. Within a week, our books were cleaned up, reconciled, and ready for tax season.",
+                  name: "Sophie Lin",
+                  role: "Owner, Brightwave Salon",
+                  initials: "SL",
+                  color: "bg-[#0053ce]",
+                },
+                {
+                  quote:
+                    "We finally have clean financials every month. Ace Global helped us understand cash flow and what to set aside for taxes.",
+                  name: "Priya Kapoor",
+                  role: "Owner, Kapoor Dental Group",
+                  initials: "PK",
+                  color: "bg-[#172d65]",
+                },
+                {
+                  quote:
+                    "They helped us get payroll, sales tax, and monthly bookkeeping under control. I can focus on customers instead of paperwork.",
+                  name: "Rachel Chen",
+                  role: "Owner, Bay Area Café",
+                  initials: "RC",
+                  color: "bg-[#4658aa]",
+                },
+              ].map((t) => (
+                <div
+                  key={t.name}
+                  className="bg-white rounded-2xl p-6 shadow-sm border border-[#c2c6d8]/20 flex flex-col gap-4"
+                >
+                  <div className="flex text-yellow-400 text-sm">{"★★★★★"}</div>
+                  <p className="text-[#424655] text-sm leading-relaxed flex-1">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div className="flex items-center gap-3 pt-2 border-t border-[#c2c6d8]/20">
+                    <div
+                      className={`w-9 h-9 rounded-full ${t.color} flex items-center justify-center text-white text-xs font-semibold shrink-0`}
+                    >
+                      {t.initials}
+                    </div>
+                    <div>
+                      <p className="text-[#00174c] text-sm font-medium">{t.name}</p>
+                      <p className="text-[#727687] text-xs">{t.role}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
