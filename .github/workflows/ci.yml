@@ -1,11 +1,11 @@
 name: CI
 
-# Run on every push to main and on every pull request targeting main.
+# Run on every push to main/staging and on every pull request targeting them.
 on:
   push:
-    branches: [main]
+    branches: [main, staging]
   pull_request:
-    branches: [main]
+    branches: [main, staging]
 
 # Cancel an in-progress run if a newer commit is pushed to the same ref.
 concurrency:
