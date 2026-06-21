@@ -8,10 +8,14 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 });
 
+// Only index the production deployment; staging/preview get a noindex tag.
+const isProduction = process.env.VERCEL_ENV === "production";
+
 export const metadata: Metadata = {
   title: "Ace Global | Your startup's books & taxes on autopilot",
   description:
     "Ace Global is the all-in-one accounting platform that combines expert CPAs with powerful software to handle bookkeeping and corporate taxes for startups.",
+  robots: isProduction ? undefined : { index: false, follow: false },
 };
 
 export default function RootLayout({
