@@ -90,9 +90,13 @@ export default function CorporateTaxesPage() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative pt-32 md:pt-40 pb-16 md:pb-24 bg-white overflow-hidden">
+        <section className="relative pt-32 md:pt-40 pb-16 md:pb-24 overflow-hidden bg-gradient-to-b from-[#e3e7ff] via-[#f2f3ff] to-white">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div className="absolute -top-24 -left-24 w-[28rem] h-[28rem] bg-[#0053ce]/25 rounded-full blur-3xl" />
+            <div className="absolute top-32 -right-24 w-[30rem] h-[30rem] bg-[#94a6fe]/40 rounded-full blur-3xl" />
+          </div>
           <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6 text-center">
-            <div className="inline-flex items-center gap-2 bg-[#94a6fe]/20 border border-[#94a6fe]/30 px-4 py-2 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 px-4 py-2 rounded-full mb-6 shadow-sm">
               <span className="text-sm font-medium tracking-wide text-[#243889]">
                 Corporate Taxes
               </span>
@@ -130,8 +134,12 @@ export default function CorporateTaxesPage() {
         </section>
 
         {/* Taxes done right — 3 feature cards */}
-        <section className="py-16 md:py-24 bg-white">
-          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+        <section className="relative py-16 md:py-24 overflow-hidden bg-gradient-to-b from-white via-[#f2f3ff] to-[#e3e7ff]">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div className="absolute top-10 left-1/4 w-[26rem] h-[26rem] bg-[#196bfa]/15 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-10 w-[24rem] h-[24rem] bg-[#94a6fe]/30 rounded-full blur-3xl" />
+          </div>
+          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
             <div className="text-center mb-12">
               <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] mb-3">
                 Every corporate tax, done right.
@@ -157,7 +165,7 @@ export default function CorporateTaxesPage() {
               ].map((c) => (
                 <div
                   key={c.title}
-                  className="bg-[#f2f3ff] rounded-3xl p-8 flex flex-col"
+                  className="bg-white/55 backdrop-blur-xl border border-white/60 rounded-3xl p-8 flex flex-col shadow-xl shadow-[#0053ce]/5"
                 >
                   <div className="w-12 h-12 rounded-xl bg-[#0053ce]/10 flex items-center justify-center text-[#0053ce] mb-5">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

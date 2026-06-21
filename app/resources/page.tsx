@@ -69,9 +69,13 @@ export default function ResourcesPage() {
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="relative pt-32 md:pt-40 pb-12 md:pb-16 bg-white overflow-hidden">
+        <section className="relative pt-32 md:pt-40 pb-12 md:pb-16 overflow-hidden bg-gradient-to-b from-[#e3e7ff] via-[#f2f3ff] to-white">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div className="absolute -top-24 -left-24 w-[28rem] h-[28rem] bg-[#0053ce]/25 rounded-full blur-3xl" />
+            <div className="absolute top-32 -right-24 w-[30rem] h-[30rem] bg-[#94a6fe]/40 rounded-full blur-3xl" />
+          </div>
           <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6 text-center">
-            <div className="inline-flex items-center gap-2 bg-[#94a6fe]/20 border border-[#94a6fe]/30 px-4 py-2 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 px-4 py-2 rounded-full mb-6 shadow-sm">
               <span className="text-sm font-medium tracking-wide text-[#243889]">Resources</span>
             </div>
             <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-medium leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
@@ -121,17 +125,24 @@ export default function ResourcesPage() {
         </section>
 
         {/* Browse by topic */}
-        <section className="py-16 md:py-[120px] bg-[#f2f3ff]">
-          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
-            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] text-center mb-12">
+        <section className="relative py-16 md:py-[120px] overflow-hidden bg-gradient-to-br from-[#172d65] via-[#1f3a82] to-[#0053ce]">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div className="absolute -top-20 right-10 w-[26rem] h-[26rem] bg-[#94a6fe]/30 rounded-full blur-3xl" />
+            <div className="absolute -bottom-24 -left-16 w-[28rem] h-[28rem] bg-[#196bfa]/40 rounded-full blur-3xl" />
+          </div>
+          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
+            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-white text-center mb-12">
               Browse by topic
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {topics.map((t) => (
-                <div key={t.title} className="bg-white rounded-3xl p-8 shadow-sm">
-                  <div className="w-12 h-12 rounded-2xl bg-[#0053ce]/10 flex items-center justify-center mb-5">
+                <div
+                  key={t.title}
+                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-xl"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-white/20 border border-white/25 flex items-center justify-center mb-5">
                     <svg
-                      className="w-6 h-6 text-[#0053ce]"
+                      className="w-6 h-6 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -139,8 +150,8 @@ export default function ResourcesPage() {
                       {t.icon}
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-[#00174c] mb-2">{t.title}</h3>
-                  <p className="text-sm text-[#727687] leading-relaxed">{t.desc}</p>
+                  <h3 className="text-lg font-semibold text-white mb-2">{t.title}</h3>
+                  <p className="text-sm text-[#dbe1ff]/80 leading-relaxed">{t.desc}</p>
                 </div>
               ))}
             </div>
@@ -148,8 +159,12 @@ export default function ResourcesPage() {
         </section>
 
         {/* Resource library (filterable) */}
-        <section className="py-16 md:py-[120px] bg-white">
-          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+        <section className="relative py-16 md:py-[120px] overflow-hidden bg-gradient-to-b from-white via-[#f2f3ff] to-[#e3e7ff]">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div className="absolute top-20 -left-20 w-[26rem] h-[26rem] bg-[#196bfa]/15 rounded-full blur-3xl" />
+            <div className="absolute bottom-10 right-1/4 w-[24rem] h-[24rem] bg-[#94a6fe]/30 rounded-full blur-3xl" />
+          </div>
+          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
             <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] text-center mb-4">
               The library
             </h2>
@@ -161,8 +176,11 @@ export default function ResourcesPage() {
         </section>
 
         {/* Newsletter */}
-        <section className="pb-16 md:pb-[120px] bg-white px-5 md:px-0">
-          <div className="max-w-[1280px] mx-auto bg-[#f2f3ff] rounded-[32px] md:rounded-[48px] p-8 md:p-16 text-center">
+        <section className="relative pt-16 md:pt-[120px] pb-16 md:pb-[120px] overflow-hidden bg-gradient-to-b from-[#e3e7ff] to-white px-5 md:px-6">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[34rem] h-[20rem] bg-[#94a6fe]/30 rounded-full blur-3xl" />
+          </div>
+          <div className="relative z-10 max-w-[1280px] mx-auto bg-white/50 backdrop-blur-xl border border-white/60 rounded-[32px] md:rounded-[48px] p-8 md:p-16 text-center shadow-xl shadow-[#0053ce]/5">
             <h2 className="text-[26px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] mb-4 max-w-2xl mx-auto">
               Finance tips for founders, once a month.
             </h2>

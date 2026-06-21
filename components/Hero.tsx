@@ -11,7 +11,7 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6 text-center">
         {/* Badge */}
-        <div className="inline-flex items-center gap-2 bg-[#94a6fe]/20 border border-[#94a6fe]/30 px-4 py-2 rounded-full mb-6">
+        <div className="inline-flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 px-4 py-2 rounded-full mb-6 shadow-sm">
           <div className="flex text-[#0053ce] text-base">
             {"★★★★★"}
           </div>

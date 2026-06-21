@@ -109,8 +109,8 @@ export default function ResourceLibrary() {
             onClick={() => setActive(cat)}
             className={`px-5 py-2 rounded-full text-sm font-medium transition-colors ${
               active === cat
-                ? "bg-[#0053ce] text-white"
-                : "bg-white text-[#00174c] border border-[#c2c6d8]/40 hover:bg-[#f2f3ff]"
+                ? "bg-[#0053ce] text-white shadow-lg shadow-[#0053ce]/20"
+                : "bg-white/50 backdrop-blur-md text-[#00174c] border border-white/60 hover:bg-white/70"
             }`}
           >
             {cat}
@@ -124,7 +124,7 @@ export default function ResourceLibrary() {
           <a
             key={r.title}
             href="#"
-            className="group bg-white rounded-3xl p-7 shadow-sm border border-[#c2c6d8]/20 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all"
+            className="group bg-white/55 backdrop-blur-xl rounded-3xl p-7 shadow-lg shadow-[#0053ce]/5 border border-white/60 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all"
           >
             <div className="flex items-center gap-3 mb-5">
               <span
