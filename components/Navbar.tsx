@@ -53,6 +53,14 @@ export default function Navbar() {
                     Get your Delaware Franchise Tax, Federal &amp; State Corporate Income Taxes filed.
                   </p>
                 </Link>
+                <Link href="/company-formation" className="block group/item">
+                  <p className="text-base font-semibold text-[#00174c] group-hover/item:text-[#0053ce] transition-colors">
+                    Company Formation
+                  </p>
+                  <p className="text-sm text-[#727687] mt-0.5">
+                    Form your LLC or C-Corp with incorporation, EIN, registered agent &amp; compliance.
+                  </p>
+                </Link>
               </div>
             </div>
           </div>
@@ -114,6 +122,13 @@ export default function Navbar() {
             onClick={() => setMenuOpen(false)}
           >
             Corporate Taxes
+          </Link>
+          <Link
+            href="/company-formation"
+            className="text-[#00174c] text-sm font-medium"
+            onClick={() => setMenuOpen(false)}
+          >
+            Company Formation
           </Link>
           {[
             { label: "Resources", href: "/resources" },
