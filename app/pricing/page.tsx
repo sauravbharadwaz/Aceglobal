@@ -71,42 +71,53 @@ export default function PricingPage() {
       <ScrollReveal />
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="relative pt-32 md:pt-40 pb-12 md:pb-16 bg-white overflow-hidden">
-          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6 text-center">
-            <div className="inline-flex items-center gap-2 bg-[#94a6fe]/20 border border-[#94a6fe]/30 px-4 py-2 rounded-full mb-6">
-              <span className="text-sm font-medium tracking-wide text-[#243889]">Pricing</span>
-            </div>
-            <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-medium leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
-              All-inclusive pricing.{" "}
-              <span className="text-[#0053ce]">No surprises.</span>
-            </h1>
-            <p className="text-base md:text-lg leading-relaxed text-[#727687] max-w-2xl mx-auto">
-              One flat rate covers your books, your team, and your AI agent. Add payroll and taxes
-              as you grow — and cancel anytime.
-            </p>
+        {/* Hero + pricing tables over a glass-friendly gradient backdrop */}
+        <section className="relative pt-32 md:pt-40 pb-16 md:pb-24 overflow-hidden bg-gradient-to-b from-[#e3e7ff] via-[#f2f3ff] to-white">
+          {/* Colorful blurred blobs — give the frosted glass something to refract */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div className="absolute -top-24 -left-24 w-[28rem] h-[28rem] bg-[#0053ce]/30 rounded-full blur-3xl" />
+            <div className="absolute top-40 -right-24 w-[30rem] h-[30rem] bg-[#94a6fe]/40 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-1/3 w-[26rem] h-[26rem] bg-[#196bfa]/20 rounded-full blur-3xl" />
           </div>
-        </section>
 
-        {/* Pricing tables */}
-        <section className="pb-16 md:pb-24 bg-white">
-          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
+            <div className="text-center mb-12 md:mb-16">
+              <div className="inline-flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 px-4 py-2 rounded-full mb-6 shadow-sm">
+                <span className="text-sm font-medium tracking-wide text-[#243889]">Pricing</span>
+              </div>
+              <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-medium leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
+                All-inclusive pricing.{" "}
+                <span className="text-[#0053ce]">No surprises.</span>
+              </h1>
+              <p className="text-base md:text-lg leading-relaxed text-[#424655] max-w-2xl mx-auto">
+                One flat rate covers your books, your team, and your AI agent. Add payroll and taxes
+                as you grow — and cancel anytime.
+              </p>
+            </div>
+
             <PricingTables />
           </div>
         </section>
 
         {/* What's included in every plan */}
-        <section className="py-16 md:py-[120px] bg-[#f2f3ff]">
-          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
-            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] text-center mb-12 max-w-2xl mx-auto">
+        <section className="relative py-16 md:py-[120px] overflow-hidden bg-gradient-to-br from-[#172d65] via-[#1f3a82] to-[#0053ce]">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+            <div className="absolute -top-20 right-10 w-[26rem] h-[26rem] bg-[#94a6fe]/30 rounded-full blur-3xl" />
+            <div className="absolute -bottom-24 -left-16 w-[28rem] h-[28rem] bg-[#196bfa]/40 rounded-full blur-3xl" />
+          </div>
+          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
+            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-white text-center mb-12 max-w-2xl mx-auto">
               Every plan includes the essentials.
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {included.map((item) => (
-                <div key={item.title} className="bg-white rounded-3xl p-8 shadow-sm">
-                  <div className="w-10 h-10 rounded-full bg-[#0053ce]/10 flex items-center justify-center mb-5">
+                <div
+                  key={item.title}
+                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-xl"
+                >
+                  <div className="w-10 h-10 rounded-full bg-white/20 border border-white/25 flex items-center justify-center mb-5">
                     <svg
-                      className="w-5 h-5 text-[#0053ce]"
+                      className="w-5 h-5 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -119,8 +130,8 @@ export default function PricingPage() {
                       />
                     </svg>
                   </div>
-                  <h3 className="text-lg font-semibold text-[#00174c] mb-2">{item.title}</h3>
-                  <p className="text-sm text-[#727687] leading-relaxed">{item.desc}</p>
+                  <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-[#dbe1ff]/80 leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
