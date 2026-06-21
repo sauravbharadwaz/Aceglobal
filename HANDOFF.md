@@ -89,18 +89,60 @@ up, gpt-image-2 becomes usable.
 - StatsBento: Established 2021, 10,000+ clients, $1B+ volume, $1M+ tax savings.
 - Client comms messaging is **WhatsApp / iMessage / AI agent** (not Slack).
 
+## Repo rename (IMPORTANT)
+GitHub renamed the repo from `New-Ace-Global` to **`Aceglobal`**. Pushes still
+work via redirect, but update the local remote:
+```bash
+git remote set-url origin https://github.com/sauravbharadwaz/Aceglobal.git
+```
+
+## CI/CD pipeline (set up this session)
+- **CI:** `.github/workflows/ci.yml` runs on push + PR to `main` and `staging`:
+  `npm ci` → `npm run typecheck` (`tsc --noEmit`) → `npm run build`. Node 20, npm
+  cache, concurrency cancels superseded runs.
+- **CD:** Vercel auto-deploys `main` → production, `staging` → staging, PRs → previews.
+- Branches: **`main`** (production) and **`staging`** both exist on origin.
+- TODO (dashboard, not code): add GitHub branch protection requiring the
+  "Type-check & build" check on `main` and `staging` to make CI a hard gate.
+- No `lint` script — Next 16 removed the built-in linter; add ESLint if wanted.
+
+## Staging environment
+- `staging` branch → Vercel staging (intended domain `staging.aceglobal.ai`).
+- Staging is behind **Vercel Deployment Protection** (Vercel Authentication), so
+  it shows "You Need Access" to anyone not on the Vercel team. To share: use a
+  Protection-Bypass share link, password protection (Pro), or invite them to the
+  team. This is expected, not a bug.
+- Open user question when this session ended: **"Google login doesn't work on
+  staging."** Not yet diagnosed. Likely an OAuth redirect-URI / authorized-origins
+  issue — whatever Google login they mean must have `staging.aceglobal.ai` added
+  to the OAuth client's Authorized JavaScript origins + redirect URIs in Google
+  Cloud Console (and matching env vars scoped to Vercel Preview). NOTE: there is
+  currently **no auth/login code in this repo** — the marketing site has no Google
+  login implemented. Clarify with the user what "Google login on staging" refers
+  to (could be the Vercel access wall's Google sign-in, or a separate app).
+
+## SEO / indexing
+- `app/robots.ts`: production (`VERCEL_ENV === "production"`) allows all + sitemap;
+  staging/preview/dev return `Disallow: /`.
+- `app/layout.tsx`: adds `noindex, nofollow` robots meta when not production.
+- No `sitemap.xml` yet (robots references `https://aceglobal.ai/sitemap.xml`).
+
 ## Vercel custom domain (in progress)
 Adding `aceglobal.ai` (primary is `www.aceglobal.ai`; apex 308-redirects to www).
-The domain was previously linked to another Vercel account, so Vercel requires a
-**TXT ownership record**. Records to add at **GoDaddy DNS**:
-- `TXT` name `_vercel` → value `vc-domain-verify=www.aceglobal.ai,1ae9a213c91318988fab`
-- `CNAME` name `www` → value `b0c9f5a48c55b228.vercel-dns-017.com`
+Two blockers seen:
+1. Domain was **linked to another Vercel account** → needs a TXT ownership record.
+2. Domain currently **points to a Notion site** (Notion's custom-domain feature) —
+   that's why visiting `aceglobal.ai` showed a Notion "couldn't load" page. Must
+   disconnect it from Notion + remove Notion's DNS records first.
+Records to add at **GoDaddy DNS** (use exactly what the Vercel Domains panel shows):
+- `TXT` name `_vercel` → `vc-domain-verify=www.aceglobal.ai,1ae9a213c91318988fab`
+- `CNAME` name `www` → `b0c9f5a48c55b228.vercel-dns-017.com`
 - `A` name `@` → `76.76.21.21` (for the apex→www redirect)
-Then click Refresh in Vercel; SSL auto-issues. (Disable any GoDaddy *forwarding*
-first — forwarding is the wrong mechanism.)
+Then Refresh in Vercel; SSL auto-issues. Remove any GoDaddy *forwarding* (wrong tool).
 
 ## Workflow conventions established this project
 - Build must pass (`npm run build`) before each commit.
 - Commit + push after each accepted change; commit messages end with the
   Co-Authored-By trailer.
 - Verify visually via the browser MCP when UI changes (dev server on :3100).
+- Default to working on `main`; merge `main → staging` (ff-only) to sync staging.
