@@ -57,13 +57,18 @@ export default function Navbar() {
             </div>
           </div>
 
-          {["Resources", "Community", "Pricing", "Book a demo"].map((item) => (
+          {[
+            { label: "Resources", href: "/resources" },
+            { label: "Community", href: "#" },
+            { label: "Pricing", href: "/pricing" },
+            { label: "Book a demo", href: "#" },
+          ].map((item) => (
             <Link
-              key={item}
-              href="#"
+              key={item.label}
+              href={item.href}
               className="text-[#00174c] text-sm hover:text-[#0053ce] transition-colors duration-200 whitespace-nowrap"
             >
-              {item}
+              {item.label}
             </Link>
           ))}
         </div>
@@ -110,14 +115,20 @@ export default function Navbar() {
           >
             Corporate Taxes
           </Link>
-          {["Resources", "Community", "Pricing", "Book a demo", "Sign in"].map((item) => (
+          {[
+            { label: "Resources", href: "/resources" },
+            { label: "Community", href: "#" },
+            { label: "Pricing", href: "/pricing" },
+            { label: "Book a demo", href: "#" },
+            { label: "Sign in", href: "#" },
+          ].map((item) => (
             <Link
-              key={item}
-              href="#"
+              key={item.label}
+              href={item.href}
               className="text-[#00174c] text-sm font-medium"
               onClick={() => setMenuOpen(false)}
             >
-              {item}
+              {item.label}
             </Link>
           ))}
         </div>
