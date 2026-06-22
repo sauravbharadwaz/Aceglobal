@@ -86,9 +86,12 @@ export default function Navbar() {
           <Link href="#" className="hidden md:block text-[#0053ce] text-sm font-medium hover:opacity-80 transition-opacity">
             Sign in
           </Link>
-          <button className="bg-[#0053ce] text-white px-6 py-3 rounded-full text-sm font-medium scale-95 active:scale-90 transition-transform shadow-lg shadow-[#0053ce]/20">
+          <a
+            href="https://app-aceglobal-ai.vercel.app/"
+            className="inline-block bg-[#0053ce] text-white px-6 py-3 rounded-full text-sm font-medium scale-95 active:scale-90 transition-transform shadow-lg shadow-[#0053ce]/20"
+          >
             Get started
-          </button>
+          </a>
           {/* Mobile menu toggle */}
           <button
             className="md:hidden text-[#00174c]"

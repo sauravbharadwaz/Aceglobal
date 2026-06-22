@@ -151,15 +151,16 @@ export default function PricingTables() {
               {annual ? "billed annually" : "billed monthly"} · {plan.highlight}
             </p>
 
-            <button
-              className={`w-full py-3.5 rounded-full font-medium text-sm transition-all mb-8 ${
+            <a
+              href="https://app-aceglobal-ai.vercel.app/"
+              className={`block text-center w-full py-3.5 rounded-full font-medium text-sm transition-all mb-8 ${
                 plan.popular
                   ? "bg-white text-[#172d65] hover:bg-[#f2f3ff]"
                   : "bg-[#0053ce] text-white hover:bg-[#0053ce]/90 shadow-lg shadow-[#0053ce]/20"
               }`}
             >
               Get started
-            </button>
+            </a>
 
             <ul className="space-y-3">
               {plan.features.map((f) => (

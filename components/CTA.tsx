@@ -13,9 +13,12 @@ export default function CTA() {
           run on autopilot.
         </p>
         <div className="flex flex-col md:flex-row gap-4 justify-center items-center relative z-10">
-          <button className="w-full md:w-auto bg-white text-[#0053ce] px-10 py-4 md:py-5 rounded-full font-medium text-lg md:text-xl hover:bg-[#f2f3ff] transition-all shadow-2xl">
+          <a
+            href="https://app-aceglobal-ai.vercel.app/"
+            className="w-full md:w-auto inline-flex items-center justify-center bg-white text-[#0053ce] px-10 py-4 md:py-5 rounded-full font-medium text-lg md:text-xl hover:bg-[#f2f3ff] transition-all shadow-2xl"
+          >
             Get started now
-          </button>
+          </a>
           <button className="w-full md:w-auto bg-[#196bfa] text-white border border-white/20 px-10 py-4 md:py-5 rounded-full font-medium text-lg md:text-xl hover:bg-white/10 transition-all">
             Book a demo
           </button>
