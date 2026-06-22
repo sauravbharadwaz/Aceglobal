@@ -152,7 +152,7 @@ export default function PricingTables() {
             </p>
 
             <a
-              href="https://app-aceglobal-ai.vercel.app/"
+              href="https://app.aceglobal.ai/"
               className={`block text-center w-full py-3.5 rounded-full font-medium text-sm transition-all mb-8 ${
                 plan.popular
                   ? "bg-white text-[#172d65] hover:bg-[#f2f3ff]"

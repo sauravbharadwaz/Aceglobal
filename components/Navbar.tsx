@@ -87,7 +87,7 @@ export default function Navbar() {
             Sign in
           </Link>
           <a
-            href="https://app-aceglobal-ai.vercel.app/"
+            href="https://app.aceglobal.ai/"
             className="inline-block bg-[#0053ce] text-white px-6 py-3 rounded-full text-sm font-medium scale-95 active:scale-90 transition-transform shadow-lg shadow-[#0053ce]/20"
           >
             Get started
