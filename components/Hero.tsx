@@ -16,7 +16,10 @@ export default function Hero() {
             {"★★★★★"}
           </div>
           <span className="text-sm font-medium tracking-wide text-[#243889]">
-            5-star bookkeeping for startups
+            5-star bookkeeping for{" "}
+            <RotatingText
+              texts={["startups", "small businesses", "agencies", "founders", "freelancers"]}
+            />
           </span>
         </div>
 
