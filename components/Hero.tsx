@@ -1,5 +1,5 @@
 import MinimalBackground from "./MinimalBackground";
-import RotatingWord from "./RotatingWord";
+import RotatingText from "./RotatingText";
 
 export default function Hero() {
   return (
@@ -21,11 +21,22 @@ export default function Hero() {
         </div>
 
         {/* Headline */}
-        <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-medium leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
-          Your{" "}
-          <RotatingWord words={["farm", "trucking", "retail", "small business"]} />{" "}
-          books &amp; taxes —{" "}
-          <span className="text-[#0053ce]">completely off your plate.</span>
+        <h1 className="relative text-[32px] sm:text-[40px] md:text-[60px] font-medium leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
+          {/* Invisible sizer reserves the height of the longest-word case so the
+              subheadline and CTA buttons never shift as the word cycles. The
+              longest word is kept non-breaking to match RotatingWord's atomic
+              inline-block, so wrapping (and thus height) matches the worst case. */}
+          <span aria-hidden className="invisible">
+            Your <span className="whitespace-nowrap">small business</span> books &amp; taxes —
+            completely off your plate.
+          </span>
+          {/* Live headline overlaid within the reserved space */}
+          <span className="absolute inset-0">
+            Your{" "}
+            <RotatingText texts={["farm", "trucking", "retail", "small business"]} />{" "}
+            books &amp; taxes —{" "}
+            <span className="text-[#0053ce]">completely off your plate.</span>
+          </span>
         </h1>
 
         {/* Subheadline */}
