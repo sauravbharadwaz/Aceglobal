@@ -12,9 +12,9 @@ const jakarta = Plus_Jakarta_Sans({
 const isProduction = process.env.VERCEL_ENV === "production";
 
 export const metadata: Metadata = {
-  title: "Ace Global | Your startup's books & taxes on autopilot",
+  title: "Ace Global | Your small business books & taxes on autopilot",
   description:
-    "Ace Global is the all-in-one accounting platform that combines expert CPAs with powerful software to handle bookkeeping and corporate taxes for startups.",
+    "Ace Global is the all-in-one accounting platform that combines expert CPAs with powerful software to handle bookkeeping and corporate taxes for small businesses.",
   robots: isProduction ? undefined : { index: false, follow: false },
 };
 
