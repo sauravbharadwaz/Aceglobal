@@ -159,7 +159,7 @@ export default function BookkeepingPage() {
               ].map((m) => (
                 <div
                   key={m.label}
-                  className="bg-white/55 backdrop-blur-xl border border-white/60 rounded-3xl p-8 flex flex-col shadow-xl shadow-[#0053ce]/5"
+                  className="bg-white/55 backdrop-blur-md border border-white/60 rounded-3xl p-8 flex flex-col shadow-xl shadow-[#0053ce]/5"
                 >
                   <p className="text-sm font-medium text-[#0053ce] mb-3">{m.label}</p>
                   <p className="text-4xl font-semibold text-[#00174c] mb-1">{m.value}</p>

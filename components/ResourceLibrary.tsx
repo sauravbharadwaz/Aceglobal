@@ -124,7 +124,7 @@ export default function ResourceLibrary() {
           <a
             key={r.title}
             href="#"
-            className="group bg-white/55 backdrop-blur-xl rounded-3xl p-7 shadow-lg shadow-[#0053ce]/5 border border-white/60 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all"
+            className="group bg-white/55 backdrop-blur-md rounded-3xl p-7 shadow-lg shadow-[#0053ce]/5 border border-white/60 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all"
           >
             <div className="flex items-center gap-3 mb-5">
               <span

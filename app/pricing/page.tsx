@@ -113,7 +113,7 @@ export default function PricingPage() {
               {included.map((item) => (
                 <div
                   key={item.title}
-                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-xl"
+                  className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-xl"
                 >
                   <div className="w-10 h-10 rounded-full bg-white/20 border border-white/25 flex items-center justify-center mb-5">
                     <svg

@@ -18,16 +18,13 @@ const DIRECTIONS = [
   { x: 120, y: -80 },  // top-right
 ];
 
+// Reveal structural blocks only (headings, cards, images) — not every
+// paragraph/link/button. Fewer ScrollTriggers + lighter reveal = smoother scroll.
 const SELECTOR = [
   "main section h1",
   "main section h2",
   "main section h3",
-  "main section h4",
-  "main section h5",
   "main section blockquote",
-  "main section p",
-  "main section button",
-  "main section a",
   "main section img",
   'main section [class*="rounded-"]',
   'footer [class*="rounded-"]',
@@ -59,8 +56,7 @@ export default function ScrollReveal() {
         opacity: 0,
         x: d.x,
         y: d.y,
-        rotateZ: gsap.utils.random(-6, 6),
-        duration: 0.9,
+        duration: 0.8,
         ease: "power3.out",
         scrollTrigger: {
           trigger: el,

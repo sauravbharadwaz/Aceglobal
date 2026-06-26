@@ -113,7 +113,7 @@ export default function PricingTables() {
         {plans.map((plan) => (
           <div
             key={plan.name}
-            className={`rounded-[32px] p-8 flex flex-col border backdrop-blur-xl ${
+            className={`rounded-[32px] p-8 flex flex-col border backdrop-blur-md ${
               plan.popular
                 ? "bg-[#172d65]/80 text-white border-white/15 shadow-2xl shadow-[#172d65]/30 md:-mt-4 md:mb-0"
                 : "bg-white/55 text-[#00174c] border-white/60 shadow-xl shadow-[#0053ce]/5"
@@ -179,7 +179,7 @@ export default function PricingTables() {
       </div>
 
       {/* Enterprise strip */}
-      <div className="mt-6 bg-white/45 backdrop-blur-xl border border-white/60 rounded-[32px] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg shadow-[#0053ce]/5">
+      <div className="mt-6 bg-white/45 backdrop-blur-md border border-white/60 rounded-[32px] p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg shadow-[#0053ce]/5">
         <div>
           <h3 className="text-xl font-semibold text-[#00174c] mb-1">Need something custom?</h3>
           <p className="text-[#727687] text-sm leading-relaxed max-w-xl">

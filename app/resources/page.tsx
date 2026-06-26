@@ -138,7 +138,7 @@ export default function ResourcesPage() {
               {topics.map((t) => (
                 <div
                   key={t.title}
-                  className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-8 shadow-xl"
+                  className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-xl"
                 >
                   <div className="w-12 h-12 rounded-2xl bg-white/20 border border-white/25 flex items-center justify-center mb-5">
                     <svg
@@ -180,7 +180,7 @@ export default function ResourcesPage() {
           <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[34rem] h-[20rem] bg-[#94a6fe]/30 rounded-full blur-3xl" />
           </div>
-          <div className="relative z-10 max-w-[1280px] mx-auto bg-white/50 backdrop-blur-xl border border-white/60 rounded-[32px] md:rounded-[48px] p-8 md:p-16 text-center shadow-xl shadow-[#0053ce]/5">
+          <div className="relative z-10 max-w-[1280px] mx-auto bg-white/50 backdrop-blur-md border border-white/60 rounded-[32px] md:rounded-[48px] p-8 md:p-16 text-center shadow-xl shadow-[#0053ce]/5">
             <h2 className="text-[26px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] mb-4 max-w-2xl mx-auto">
               Finance tips for founders, once a month.
             </h2>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 // Lightweight floating particle field (Three.js Points).
 function Particles() {
@@ -12,6 +12,9 @@ function Particles() {
     const container = containerRef.current;
     if (!container) return;
 
+    // Skip the WebGL field entirely for reduced-motion users.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     let width = container.clientWidth;
     let height = container.clientHeight;
 
@@ -19,8 +22,8 @@ function Particles() {
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
     camera.position.z = 14;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(width, height);
     renderer.setClearColor(0x000000, 0);
     container.appendChild(renderer.domElement);
@@ -67,8 +70,10 @@ function Particles() {
     const pos = geometry.attributes.position as THREE.BufferAttribute;
     let raf = 0;
     let t = 0;
+    let running = false;
 
     const animate = () => {
+      if (!running) return;
       t += 0.01;
       for (let i = 0; i < COUNT; i++) {
         let y = pos.getY(i) + speeds[i];
@@ -81,7 +86,24 @@ function Particles() {
       renderer.render(scene, camera);
       raf = requestAnimationFrame(animate);
     };
-    animate();
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(animate);
+    };
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+    };
+
+    // Only render while the hero is on screen — stop the loop once the user
+    // scrolls past it, so the rest of the page isn't paying for WebGL.
+    const io = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? start() : stop()),
+      { threshold: 0 }
+    );
+    io.observe(container);
 
     const onResize = () => {
       width = container.clientWidth;
@@ -93,7 +115,8 @@ function Particles() {
     window.addEventListener("resize", onResize);
 
     return () => {
-      cancelAnimationFrame(raf);
+      io.disconnect();
+      stop();
       window.removeEventListener("resize", onResize);
       geometry.dispose();
       material.dispose();
@@ -109,22 +132,23 @@ function Particles() {
 }
 
 export default function MinimalBackground() {
+  const reduced = useReducedMotion();
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
       {/* Slow drifting gradient blobs (Framer Motion) */}
       <motion.div
         className="absolute -top-40 -left-24 w-[520px] h-[520px] rounded-full bg-[#0053ce]/10 blur-3xl"
-        animate={{ x: [0, 50, 0], y: [0, 30, 0] }}
+        animate={reduced ? undefined : { x: [0, 50, 0], y: [0, 30, 0] }}
         transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute top-10 right-[-80px] w-[460px] h-[460px] rounded-full bg-[#94a6fe]/20 blur-3xl"
-        animate={{ x: [0, -40, 0], y: [0, 45, 0] }}
+        animate={reduced ? undefined : { x: [0, -40, 0], y: [0, 45, 0] }}
         transition={{ duration: 26, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
         className="absolute bottom-[-120px] left-1/3 w-[400px] h-[400px] rounded-full bg-[#196bfa]/10 blur-3xl"
-        animate={{ x: [0, 30, 0], y: [0, -35, 0] }}
+        animate={reduced ? undefined : { x: [0, 30, 0], y: [0, -35, 0] }}
         transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
       />
 
