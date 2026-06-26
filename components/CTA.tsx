@@ -19,9 +19,6 @@ export default function CTA() {
           >
             Get started now
           </a>
-          <button className="w-full md:w-auto bg-[#196bfa] text-white border border-white/20 px-10 py-4 md:py-5 rounded-full font-medium text-lg md:text-xl hover:bg-white/10 transition-all">
-            Book a demo
-          </button>
         </div>
       </div>
     </section>

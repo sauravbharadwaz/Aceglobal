@@ -56,9 +56,6 @@ export default function Hero() {
           >
             Get started
           </a>
-          <button className="bg-[#94a6fe] text-[#243889] px-6 md:px-8 py-2.5 md:py-4 rounded-full font-medium text-sm md:text-lg hover:bg-[#94a6fe]/80 transition-all">
-            Book a demo
-          </button>
         </div>
       </div>
     </section>

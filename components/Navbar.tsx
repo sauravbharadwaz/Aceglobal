@@ -67,9 +67,7 @@ export default function Navbar() {
 
           {[
             { label: "Resources", href: "/resources" },
-            { label: "Community", href: "#" },
             { label: "Pricing", href: "/pricing" },
-            { label: "Book a demo", href: "#" },
           ].map((item) => (
             <Link
               key={item.label}
@@ -135,9 +133,7 @@ export default function Navbar() {
           </Link>
           {[
             { label: "Resources", href: "/resources" },
-            { label: "Community", href: "#" },
             { label: "Pricing", href: "/pricing" },
-            { label: "Book a demo", href: "#" },
             { label: "Sign in", href: "#" },
           ].map((item) => (
             <Link

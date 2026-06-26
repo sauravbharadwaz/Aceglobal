@@ -1,15 +1,5 @@
 import Link from "next/link";
 
-/* Small tile with a generic AI glyph (placeholder marks — drop official
-   provider SVGs into /public/logos and swap for <img> if desired) */
-function AiTile({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-white">
-      {children}
-    </div>
-  );
-}
-
 function SocialCard({
   label,
   children,
@@ -28,18 +18,24 @@ function SocialCard({
   );
 }
 
-function LinkCard({ title, items }: { title: string; items: string[] }) {
+function LinkCard({
+  title,
+  items,
+}: {
+  title: string;
+  items: { label: string; href: string }[];
+}) {
   return (
     <div className="bg-white/[0.06] rounded-3xl p-7">
       <p className="text-lg font-semibold text-white mb-5">{title}</p>
       <ul className="space-y-4">
         {items.map((item) => (
-          <li key={item}>
+          <li key={item.label}>
             <Link
-              href="#"
+              href={item.href}
               className="text-[#dbe1ff]/60 hover:text-white text-sm transition-colors leading-relaxed"
             >
-              {item}
+              {item.label}
             </Link>
           </li>
         ))}
@@ -52,8 +48,8 @@ export default function Footer() {
   return (
     <footer className="bg-[#172d65] pt-12 pb-12">
       <div className="max-w-[1280px] mx-auto px-5 md:px-6 space-y-5">
-        {/* Newsletter + AI summary card */}
-        <div className="bg-white/[0.06] rounded-3xl p-8 md:p-10 flex flex-col lg:flex-row lg:items-center gap-8 justify-between">
+        {/* Newsletter card */}
+        <div className="bg-white/[0.06] rounded-3xl p-8 md:p-10">
           <div className="flex-1">
             <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3">
               Join our newsletter
@@ -71,30 +67,6 @@ export default function Footer() {
               <button className="bg-[#0053ce] text-white px-7 py-3.5 rounded-xl text-sm font-medium hover:bg-[#196bfa] transition-colors">
                 Subscribe
               </button>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-6">
-            <p className="text-xl md:text-2xl font-semibold text-white leading-snug max-w-[220px]">
-              Get an AI summary of Ace Global
-            </p>
-            <div className="flex gap-3">
-              {/* Generic AI glyphs (sparkle / asterisk / starburst) */}
-              <AiTile>
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M12 2l2.2 6.5L21 11l-6.8 2.5L12 20l-2.2-6.5L3 11l6.8-2.5z" />
-                </svg>
-              </AiTile>
-              <AiTile>
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M11 2h2v8.3l5.9-5.9 1.4 1.4-5.9 5.9H22v2h-7.6l5.9 5.9-1.4 1.4-5.9-5.9V22h-2v-7.9l-5.9 5.9-1.4-1.4 5.9-5.9H2v-2h7.6L3.7 4.8l1.4-1.4L11 9.3z" />
-                </svg>
-              </AiTile>
-              <AiTile>
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                  <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4" />
-                </svg>
-              </AiTile>
             </div>
           </div>
         </div>
@@ -138,60 +110,23 @@ export default function Footer() {
           </SocialCard>
         </div>
 
-        {/* Link bento columns */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-start">
-          {/* Col 1 */}
-          <div className="flex flex-col gap-5">
-            <LinkCard
-              title="For Small Businesses"
-              items={["Bookkeeping", "Business Taxes", "Payroll", "TaxPass", "Pricing"]}
-            />
-            <LinkCard title="For Accountants" items={["Partner Program", "Client Support"]} />
-          </div>
-
-          {/* Col 2 */}
-          <div className="flex flex-col gap-5">
-            <LinkCard
-              title="Free Tools"
-              items={[
-                "Tax deadline alerts",
-                "Delaware Franchise Tax calculator",
-                "Sales tax calculator",
-                "Payroll tax calculator",
-                "Runway calculator",
-                "Burn rate calculator",
-              ]}
-            />
-            <LinkCard title="Company" items={["About Us", "Careers", "Contact"]} />
-          </div>
-
-          {/* Col 3 */}
-          <div className="flex flex-col gap-5">
-            <LinkCard
-              title="Integrations"
-              items={[
-                "QuickBooks",
-                "Xero",
-                "Stripe",
-                "Gusto",
-                "Square",
-                "Shopify",
-                "Bank Accounts",
-                "Credit Cards",
-                "Payroll Systems",
-                "Payment Processors",
-              ]}
-            />
-          </div>
-
-          {/* Col 4 */}
-          <div className="flex flex-col gap-5">
-            <LinkCard
-              title="Resources"
-              items={["Events", "Blog", "Small Business Guides", "Owner Journal"]}
-            />
-            <LinkCard title="Support" items={["Help Center", "Privacy", "Terms"]} />
-          </div>
+        {/* Link columns — only pages the site actually provides */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-start">
+          <LinkCard
+            title="Platform"
+            items={[
+              { label: "Bookkeeping", href: "/bookkeeping" },
+              { label: "Business Taxes", href: "/corporate-taxes" },
+              { label: "Company Formation", href: "/company-formation" },
+            ]}
+          />
+          <LinkCard
+            title="Explore"
+            items={[
+              { label: "Pricing", href: "/pricing" },
+              { label: "Resources", href: "/resources" },
+            ]}
+          />
         </div>
 
         {/* Bottom bar */}
