@@ -29,8 +29,34 @@ Port **3100** is used because another project sometimes occupies 3000.
 - `/` — home (`app/page.tsx`)
 - `/bookkeeping` — full platform page (`app/bookkeeping/page.tsx`)
 - `/corporate-taxes` — full platform page (`app/corporate-taxes/page.tsx`)
+- `/company-formation` — full platform page (`app/company-formation/page.tsx`)
+- `/pricing`, `/resources` — marketing pages
+- `/blog` + `/blog/[slug]` — Sanity-backed blog (see below)
+- `/studio` — embedded Sanity Studio (content editor)
 
-The Navbar "Platform" item is a hover dropdown linking to both platform pages.
+The Navbar "Platform" item is a hover dropdown linking to the platform pages.
+
+## Blog + Sanity (headless CMS)
+The blog is powered by **Sanity** (embedded Studio, `next-sanity`).
+- **Content model** (`sanity/schemaTypes/`): `post` (title, slug, excerpt,
+  coverImage, author→, categories→, publishedAt, body=Portable Text, seo),
+  `author`, `category`, `blockContent`.
+- **Studio** lives at `/studio` (`app/studio/[[...tool]]/page.tsx`,
+  config in `sanity.config.ts`). Edit posts there once the project id is set.
+- **Data layer**: `sanity/client.ts`, `sanity/queries.ts` (GROQ + guarded
+  fetch helpers), `sanity/image.ts` (image URLs). Body rendered by
+  `components/PortableTextBody.tsx` (`@portabletext/react`).
+- **Config is env-driven** (`sanity/env.ts`). Until a real project id is set,
+  `isSanityConfigured` is false → `/blog` shows an empty state and the build
+  still passes (fetches are short-circuited, so no network at build).
+- **To go live:** create a free project at https://sanity.io/manage (or
+  `npx sanity init`), then set in `.env.local` (Vercel too):
+  `NEXT_PUBLIC_SANITY_PROJECT_ID=<id>`, `NEXT_PUBLIC_SANITY_DATASET=production`,
+  `NEXT_PUBLIC_SANITY_API_VERSION=2024-10-01`. Add the deployed domain +
+  `http://localhost:3100` to the project's CORS origins (sanity.io/manage →
+  API → CORS). Then visit `/studio`, create posts, publish.
+- `.env*` is gitignored here, so the env template isn't committed — the vars
+  above are the source of truth.
 
 ## Components in use (rendered on home page)
 Navbar, Hero, TrustBar, BentoGrid, Timeline, Services, TestimonialCards,

@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# sanity studio runtime
+/.sanity/
+
 # production
 /build
 

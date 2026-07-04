@@ -67,6 +67,7 @@ export default function Navbar() {
 
           {[
             { label: "Resources", href: "/resources" },
+            { label: "Blog", href: "/blog" },
             { label: "Pricing", href: "/pricing" },
           ].map((item) => (
             <Link
@@ -133,6 +134,7 @@ export default function Navbar() {
           </Link>
           {[
             { label: "Resources", href: "/resources" },
+            { label: "Blog", href: "/blog" },
             { label: "Pricing", href: "/pricing" },
             { label: "Sign in", href: "https://app.aceglobal.ai/?mode=login" },
           ].map((item) => (

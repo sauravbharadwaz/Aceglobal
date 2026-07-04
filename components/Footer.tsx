@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NewsletterForm from "@/components/NewsletterForm";
 
 function SocialCard({
   label,
@@ -58,16 +59,7 @@ export default function Footer() {
               Get practical tax, bookkeeping, payroll, and compliance tips for small business
               owners.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 max-w-md">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 bg-white rounded-xl px-4 py-3.5 text-sm text-[#00174c] placeholder:text-[#727687] focus:outline-none focus:ring-2 focus:ring-[#0053ce]/40"
-              />
-              <button className="bg-[#0053ce] text-white px-7 py-3.5 rounded-xl text-sm font-medium hover:bg-[#196bfa] transition-colors">
-                Subscribe
-              </button>
-            </div>
+            <NewsletterForm />
           </div>
         </div>
 
@@ -123,6 +115,7 @@ export default function Footer() {
           <LinkCard
             title="Explore"
             items={[
+              { label: "Blog", href: "/blog" },
               { label: "Pricing", href: "/pricing" },
               { label: "Resources", href: "/resources" },
             ]}
