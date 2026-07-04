@@ -81,9 +81,9 @@ export default function Navbar() {
 
         {/* CTAs */}
         <div className="flex items-center gap-6">
-          <Link href="#" className="hidden md:block text-[#0053ce] text-sm font-medium hover:opacity-80 transition-opacity">
+          <a href="https://app.aceglobal.ai/?mode=login" className="hidden md:block text-[#0053ce] text-sm font-medium hover:opacity-80 transition-opacity">
             Sign in
-          </Link>
+          </a>
           <a
             href="https://app.aceglobal.ai/"
             className="inline-block bg-[#0053ce] text-white px-6 py-3 rounded-full text-sm font-medium scale-95 active:scale-90 transition-transform shadow-lg shadow-[#0053ce]/20"
@@ -134,7 +134,7 @@ export default function Navbar() {
           {[
             { label: "Resources", href: "/resources" },
             { label: "Pricing", href: "/pricing" },
-            { label: "Sign in", href: "#" },
+            { label: "Sign in", href: "https://app.aceglobal.ai/?mode=login" },
           ].map((item) => (
             <Link
               key={item.label}
