@@ -11,6 +11,7 @@ const postCardFields = groq`
   excerpt,
   publishedAt,
   coverImage,
+  "readTime": round(length(pt::text(body)) / 5 / 200),
   "author": author->{name, role, image},
   "categories": categories[]->{title, "slug": slug.current}
 `;
@@ -39,6 +40,7 @@ export type PostCard = {
   excerpt?: string;
   publishedAt?: string;
   coverImage?: SanityImage;
+  readTime?: number;
   author?: { name?: string; role?: string; image?: SanityImage };
   categories?: { title: string; slug: string }[];
 };
