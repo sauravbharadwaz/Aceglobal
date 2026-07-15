@@ -55,6 +55,13 @@ The blog is powered by **Sanity** (embedded Studio, `next-sanity`).
   `NEXT_PUBLIC_SANITY_API_VERSION=2024-10-01`. Add the deployed domain +
   `http://localhost:3100` to the project's CORS origins (sanity.io/manage →
   API → CORS). Then visit `/studio`, create posts, publish.
+- **Read token (this project `qpeoflzk`):** the `production` dataset denies
+  anonymous reads of content documents (only image assets are public), so the
+  site needs a server-side Viewer token. Set `SANITY_API_READ_TOKEN=<token>`
+  in `.env.local` AND in Vercel env. `sanity/client.ts` uses it with
+  `perspective: "published"`. Without it, `/blog` renders empty even though
+  posts exist. (Alternative: make the dataset fully public, then no token
+  needed.) The token is server-only — never prefixed `NEXT_PUBLIC_`.
 - `.env*` is gitignored here, so the env template isn't committed — the vars
   above are the source of truth.
 
