@@ -4,6 +4,7 @@ import {
 } from "@portabletext/react";
 import Link from "next/link";
 
+import FaqAccordionItem from "@/components/FaqAccordionItem";
 import { urlForImage } from "@/sanity/image";
 
 const components: PortableTextComponents = {
@@ -105,13 +106,67 @@ const components: PortableTextComponents = {
   },
 };
 
+type PTValue = Parameters<typeof PortableText>[0]["value"];
+
+type PTBlock = {
+  _type?: string;
+  style?: string;
+  children?: { text?: string }[];
+};
+
+function headingText(block: PTBlock) {
+  return (block.children || [])
+    .map((c) => c.text || "")
+    .join("")
+    .trim();
+}
+
 export default function PortableTextBody({ value }: { value: unknown }) {
-  if (!value) return null;
-  // @portabletext/react expects the Portable Text array
+  if (!Array.isArray(value) || value.length === 0) return null;
+
+  const blocks = value as PTBlock[];
+
+  // These posts are written as FAQs — each h2 is a question and the blocks
+  // that follow are its answer. Split on h2 so every question collapses.
+  // Anything before the first h2 (quick answer, disclaimer) stays visible,
+  // and a post with no h2 at all just renders as a normal article.
+  const intro: PTBlock[] = [];
+  const sections: { question: string; blocks: PTBlock[] }[] = [];
+
+  for (const block of blocks) {
+    if (block._type === "block" && block.style === "h2") {
+      sections.push({ question: headingText(block), blocks: [] });
+    } else if (sections.length > 0) {
+      sections[sections.length - 1].blocks.push(block);
+    } else {
+      intro.push(block);
+    }
+  }
+
   return (
-    <PortableText
-      value={value as Parameters<typeof PortableText>[0]["value"]}
-      components={components}
-    />
+    <>
+      {intro.length > 0 ? (
+        <PortableText
+          value={intro as unknown as PTValue}
+          components={components}
+        />
+      ) : null}
+
+      {sections.length > 0 ? (
+        <div className="mt-10 border-t border-[#c2c6d8]/30">
+          {sections.map((section, i) => (
+            <FaqAccordionItem
+              key={`${section.question}-${i}`}
+              question={section.question}
+            >
+              <PortableText
+                value={section.blocks as unknown as PTValue}
+                components={components}
+              />
+            </FaqAccordionItem>
+          ))}
+        </div>
+      ) : null}
+    </>
   );
 }
