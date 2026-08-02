@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 
-// One expandable question in a blog post. The answer is rendered on the server
-// and passed in as `children`, so Portable Text (and its image URLs) never has
-// to ship to the client — only the open/closed state lives here.
+// One expandable question in a blog post's "Frequently asked questions"
+// section. The answer is rendered on the server and passed in as `children`, so
+// Portable Text (and its image URLs) never has to ship to the client — only the
+// open/closed state lives here.
 export default function FaqAccordionItem({
   question,
   defaultOpen = false,
@@ -18,14 +19,14 @@ export default function FaqAccordionItem({
 
   return (
     <div className="border-b border-[#c2c6d8]/30">
-      <h2>
+      <h3 className="m-0">
         <button
           type="button"
           onClick={() => setOpen((o) => !o)}
           aria-expanded={open}
           className="group flex w-full items-start justify-between gap-4 py-5 text-left"
         >
-          <span className="text-xl md:text-2xl font-medium text-[#00174c] leading-snug group-hover:text-[#0053ce] transition-colors">
+          <span className="text-lg md:text-xl font-medium text-[#00174c] leading-snug group-hover:text-[#0053ce] transition-colors">
             {question}
           </span>
           <span
@@ -49,7 +50,7 @@ export default function FaqAccordionItem({
             </svg>
           </span>
         </button>
-      </h2>
+      </h3>
 
       {/* Kept in the DOM (display:none when closed) so the answers stay
           crawlable for SEO rather than being unmounted. */}

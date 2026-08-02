@@ -121,52 +121,112 @@ function headingText(block: PTBlock) {
     .trim();
 }
 
+const isBlock = (b: PTBlock, style: string) =>
+  b._type === "block" && b.style === style;
+
+// Only the post's FAQ section collapses. Everything else is a normal article.
+const isFaqHeading = (b: PTBlock) =>
+  isBlock(b, "h2") && /frequently asked questions/i.test(headingText(b));
+
+// The article renders straight through as prose. When we reach the
+// "Frequently asked questions" h2, we switch modes: that heading stays a
+// normal heading, and each h3 question beneath it becomes an expand/collapse
+// item — until the next h2 ends the FAQ section and prose resumes.
+type Segment =
+  | { kind: "prose"; blocks: PTBlock[] }
+  | {
+      kind: "faq";
+      heading: PTBlock;
+      intro: PTBlock[];
+      items: { question: string; blocks: PTBlock[] }[];
+    };
+
+function segment(blocks: PTBlock[]): Segment[] {
+  const segments: Segment[] = [];
+  let inFaq = false;
+
+  const pushProse = (block: PTBlock) => {
+    const last = segments[segments.length - 1];
+    if (last && last.kind === "prose") last.blocks.push(block);
+    else segments.push({ kind: "prose", blocks: [block] });
+  };
+
+  for (const block of blocks) {
+    if (isFaqHeading(block)) {
+      segments.push({ kind: "faq", heading: block, intro: [], items: [] });
+      inFaq = true;
+      continue;
+    }
+
+    // Any h2 after the FAQ heading closes the FAQ section.
+    if (inFaq && isBlock(block, "h2")) inFaq = false;
+
+    if (inFaq) {
+      const faq = segments[segments.length - 1] as Extract<
+        Segment,
+        { kind: "faq" }
+      >;
+      if (isBlock(block, "h3")) {
+        faq.items.push({ question: headingText(block), blocks: [] });
+      } else if (faq.items.length > 0) {
+        faq.items[faq.items.length - 1].blocks.push(block);
+      } else {
+        // Text between the FAQ heading and the first question stays visible.
+        faq.intro.push(block);
+      }
+      continue;
+    }
+
+    pushProse(block);
+  }
+
+  return segments;
+}
+
 export default function PortableTextBody({ value }: { value: unknown }) {
   if (!Array.isArray(value) || value.length === 0) return null;
 
-  const blocks = value as PTBlock[];
-
-  // These posts are written as FAQs — each h2 is a question and the blocks
-  // that follow are its answer. Split on h2 so every question collapses.
-  // Anything before the first h2 (quick answer, disclaimer) stays visible,
-  // and a post with no h2 at all just renders as a normal article.
-  const intro: PTBlock[] = [];
-  const sections: { question: string; blocks: PTBlock[] }[] = [];
-
-  for (const block of blocks) {
-    if (block._type === "block" && block.style === "h2") {
-      sections.push({ question: headingText(block), blocks: [] });
-    } else if (sections.length > 0) {
-      sections[sections.length - 1].blocks.push(block);
-    } else {
-      intro.push(block);
-    }
-  }
+  const segments = segment(value as PTBlock[]);
 
   return (
     <>
-      {intro.length > 0 ? (
-        <PortableText
-          value={intro as unknown as PTValue}
-          components={components}
-        />
-      ) : null}
-
-      {sections.length > 0 ? (
-        <div className="mt-10 border-t border-[#c2c6d8]/30">
-          {sections.map((section, i) => (
-            <FaqAccordionItem
-              key={`${section.question}-${i}`}
-              question={section.question}
-            >
+      {segments.map((seg, i) =>
+        seg.kind === "prose" ? (
+          <PortableText
+            key={`prose-${i}`}
+            value={seg.blocks as unknown as PTValue}
+            components={components}
+          />
+        ) : (
+          <section key={`faq-${i}`}>
+            <PortableText
+              value={[seg.heading] as unknown as PTValue}
+              components={components}
+            />
+            {seg.intro.length > 0 ? (
               <PortableText
-                value={section.blocks as unknown as PTValue}
+                value={seg.intro as unknown as PTValue}
                 components={components}
               />
-            </FaqAccordionItem>
-          ))}
-        </div>
-      ) : null}
+            ) : null}
+            {seg.items.length > 0 ? (
+              <div className="border-t border-[#c2c6d8]/30">
+                {seg.items.map((item, j) => (
+                  <FaqAccordionItem
+                    key={`${item.question}-${j}`}
+                    question={item.question}
+                  >
+                    <PortableText
+                      value={item.blocks as unknown as PTValue}
+                      components={components}
+                    />
+                  </FaqAccordionItem>
+                ))}
+              </div>
+            ) : null}
+          </section>
+        )
+      )}
     </>
   );
 }
