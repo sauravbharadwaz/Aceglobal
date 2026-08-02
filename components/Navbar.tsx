@@ -21,8 +21,17 @@ export default function Navbar() {
     >
       <div className="relative flex justify-between items-center max-w-[1280px] mx-auto px-5 md:px-6 h-20">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-semibold text-[#00174c]">
-          Ace Global
+        <Link href="/" className="flex items-center gap-2.5">
+          <img
+            src="/logo.svg"
+            alt="Ace Global logo"
+            width={36}
+            height={36}
+            className="h-9 w-9"
+          />
+          <span className="text-2xl font-semibold text-[#00174c]">
+            Ace Global
+          </span>
         </Link>
 
         {/* Nav links — centered in the header */}
