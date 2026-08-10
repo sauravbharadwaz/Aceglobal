@@ -128,37 +128,105 @@ function EmptyState() {
   );
 }
 
-export default async function BlogPage() {
+/** Every category in use, de-duplicated, alphabetical — the filter row. */
+function categoriesOf(posts: PostCard[]) {
+  const seen = new Map<string, { title: string; slug: string }>();
+  for (const p of posts) {
+    for (const c of p.categories ?? []) {
+      if (c?.slug && !seen.has(c.slug)) seen.set(c.slug, { title: c.title, slug: c.slug });
+    }
+  }
+  return [...seen.values()].sort((a, b) => a.title.localeCompare(b.title));
+}
+
+function NoMatches({ label }: { label: string }) {
+  return (
+    <div className="col-span-full py-16 text-center">
+      <p className="text-[#00174c] font-medium mb-1">Nothing filed under “{label}” yet.</p>
+      <Link href="/blog" className="text-sm text-[#0053ce] hover:underline">
+        View all articles
+      </Link>
+    </div>
+  );
+}
+
+export default async function BlogPage({
+  searchParams,
+}: {
+  // A promise in this version of Next — it has to be awaited before use.
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
   const posts = await getPosts();
+  const { category } = await searchParams;
+  const active = typeof category === "string" ? category : null;
+
+  const categories = categoriesOf(posts);
+  const activeCategory = categories.find((c) => c.slug === active) ?? null;
+  const visible = activeCategory
+    ? posts.filter((p) => p.categories?.some((c) => c.slug === activeCategory.slug))
+    : posts;
+
+  const chip = (label: string, href: string, isActive: boolean) => (
+    <Link
+      key={href}
+      href={href}
+      aria-current={isActive ? "page" : undefined}
+      className={
+        "px-4 py-2 rounded-full text-sm font-medium border transition-colors " +
+        (isActive
+          ? "bg-[#00174c] text-white border-[#00174c]"
+          : "bg-white text-[#424655] border-[#e3e6ef] hover:border-[#0053ce] hover:text-[#0053ce]")
+      }
+    >
+      {label}
+    </Link>
+  );
 
   return (
     <>
       <ScrollReveal />
       <Navbar />
       <main>
-        {/* Hero */}
-        <section className="relative pt-32 md:pt-40 pb-12 md:pb-16 overflow-hidden bg-gradient-to-b from-[#e3e7ff] via-[#f2f3ff] to-white">
-          <div
-            className="absolute inset-0 pointer-events-none overflow-hidden"
-            aria-hidden="true"
-          >
-            <div className="absolute -top-24 -left-24 w-[28rem] h-[28rem] bg-[#0053ce]/25 rounded-full blur-3xl" />
-            <div className="absolute top-32 -right-24 w-[30rem] h-[30rem] bg-[#94a6fe]/40 rounded-full blur-3xl" />
-          </div>
-          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6 text-center">
-            <div className="inline-flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 px-4 py-2 rounded-full mb-6 shadow-sm">
-              <span className="text-sm font-medium tracking-wide text-[#243889]">
-                Blog
-              </span>
+        {/* Page header. Deliberately not a full-bleed hero: this is an index, so
+            the first article should be reachable without scrolling past a screen
+            of decoration. Title, one line of context, and the filters. */}
+        <section className="pt-28 md:pt-36 pb-8 md:pb-10 bg-white">
+          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+            <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-3">
+              <div>
+                <h1 className="text-[34px] md:text-[46px] font-medium leading-[1.1] tracking-[-0.02em] text-[#00174c]">
+                  {activeCategory ? activeCategory.title : "Blog"}
+                </h1>
+                <p className="mt-3 text-base md:text-lg leading-relaxed text-[#727687] max-w-2xl">
+                  Practical takes on bookkeeping, corporate taxes, payroll, and
+                  compliance — from the CPA team that handles it every day.
+                </p>
+              </div>
+              {posts.length > 0 && (
+                <p className="text-sm text-[#727687] pb-1">
+                  {visible.length} {visible.length === 1 ? "article" : "articles"}
+                </p>
+              )}
             </div>
-            <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-medium leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
-              Insights for{" "}
-              <span className="text-[#0053ce]">small business owners.</span>
-            </h1>
-            <p className="text-base md:text-lg leading-relaxed text-[#727687] max-w-2xl mx-auto">
-              Practical takes on bookkeeping, corporate taxes, payroll, and
-              compliance — from the CPA team that handles it every day.
-            </p>
+
+            {categories.length > 1 && (
+              /* `rounded-2xl` is load-bearing, not decorative: ScrollReveal targets
+                 the outermost `[class*="rounded-"]`, so without it every chip would
+                 fly in from its own random direction. This makes the row animate as
+                 one. It has no background, so the radius itself is invisible. */
+              <nav
+                aria-label="Filter articles by category"
+                className="mt-8 flex flex-wrap gap-2 rounded-2xl"
+              >
+                {chip("All", "/blog", !activeCategory)}
+                {categories.map((c) =>
+                  chip(c.title, `/blog?category=${encodeURIComponent(c.slug)}`, c.slug === activeCategory?.slug),
+                )}
+              </nav>
+            )}
+          </div>
+          <div className="max-w-[1280px] mx-auto px-5 md:px-6">
+            <div className="mt-8 md:mt-10 border-t border-[#eef0f6]" />
           </div>
         </section>
 
@@ -166,12 +234,14 @@ export default async function BlogPage() {
         {posts.length === 0 ? (
           <EmptyState />
         ) : (
-          <section className="py-12 md:py-20 bg-white">
+          <section className="pb-16 md:pb-24 bg-white">
             <div className="max-w-[1280px] mx-auto px-5 md:px-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
-                {posts.map((post) => (
-                  <PostCardItem key={post._id} post={post} />
-                ))}
+                {visible.length === 0 ? (
+                  <NoMatches label={activeCategory?.title ?? ""} />
+                ) : (
+                  visible.map((post) => <PostCardItem key={post._id} post={post} />)
+                )}
               </div>
             </div>
           </section>
