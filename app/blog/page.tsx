@@ -56,8 +56,10 @@ function PostCardItem({ post }: { post: PostCard }) {
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : null}
+        {/* Bottom-right, not top-left: the cover artwork carries the Ace Global
+            mark in its top-left corner, and the badge was sitting over it. */}
         {post.categories?.[0] ? (
-          <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-[#0053ce] text-xs font-medium px-3 py-1.5 rounded-full shadow-sm">
+          <span className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-[#0053ce] text-xs font-medium px-3 py-1.5 rounded-full shadow-sm">
             {post.categories[0].title}
           </span>
         ) : null}
