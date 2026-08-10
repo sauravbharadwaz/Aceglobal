@@ -94,9 +94,11 @@ export default function Navbar() {
           <a href="https://app.aceglobal.ai/?mode=login" className="hidden md:block text-[#0053ce] text-sm font-medium hover:opacity-80 transition-opacity">
             Sign in
           </a>
+          {/* Hidden on mobile — it crowded the logo, so it lives inside the menu
+              instead, where it reads as the primary action. */}
           <a
             href="https://app.aceglobal.ai/"
-            className="inline-block bg-[#0053ce] text-white px-6 py-3 rounded-full text-sm font-medium scale-95 active:scale-90 transition-transform shadow-lg shadow-[#0053ce]/20"
+            className="hidden md:inline-block bg-[#0053ce] text-white px-6 py-3 rounded-full text-sm font-medium scale-95 active:scale-90 transition-transform shadow-lg shadow-[#0053ce]/20"
           >
             Get started
           </a>
@@ -145,6 +147,7 @@ export default function Navbar() {
             { label: "Resources", href: "/resources" },
             { label: "Blog", href: "/blog" },
             { label: "Pricing", href: "/pricing" },
+            { label: "Get started", href: "https://app.aceglobal.ai/" },
             { label: "Sign in", href: "https://app.aceglobal.ai/?mode=login" },
           ].map((item) => (
             <Link
