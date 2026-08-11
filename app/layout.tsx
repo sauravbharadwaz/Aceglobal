@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { isProduction } from "@/lib/site-env";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({
@@ -8,9 +9,8 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
 });
 
-// Only index the production deployment; staging/preview get a noindex tag.
-const isProduction = process.env.VERCEL_ENV === "production";
-
+// Only the production deployment is indexable; staging and preview carry a
+// noindex tag so they never compete with the real site in search results.
 export const metadata: Metadata = {
   title: "Ace Global | Your small business books & taxes on autopilot",
   description:
