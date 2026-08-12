@@ -147,7 +147,6 @@ export default function Navbar() {
             { label: "Resources", href: "/resources" },
             { label: "Blog", href: "/blog" },
             { label: "Pricing", href: "/pricing" },
-            { label: "Get started", href: "https://app.aceglobal.ai/" },
             { label: "Sign in", href: "https://app.aceglobal.ai/?mode=login" },
           ].map((item) => (
             <Link
@@ -159,6 +158,20 @@ export default function Navbar() {
               {item.label}
             </Link>
           ))}
+
+          {/* Last item, and the only one styled as a button. It spans the menu's
+              full content column with the label left-aligned, so the text reads
+              down the same edge as the links above instead of sitting centred in
+              the pill. The label starts 24px in — that is the button's own
+              padding, and it cannot go flush to 20px without colliding with the
+              pill's rounded end. */}
+          <a
+            href="https://app.aceglobal.ai/"
+            onClick={() => setMenuOpen(false)}
+            className="w-full text-left bg-[#0053ce] text-white px-6 py-3.5 rounded-full text-sm font-medium active:scale-95 transition-transform shadow-lg shadow-[#0053ce]/20"
+          >
+            Get started
+          </a>
         </div>
       )}
     </nav>
