@@ -7,8 +7,10 @@ import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
 import ScrollReveal from "@/components/ScrollReveal";
 import PortableTextBody from "@/components/PortableTextBody";
+import TableOfContents from "@/components/TableOfContents";
 import { getPost, getPostSlugs } from "@/sanity/queries";
 import { urlForImage } from "@/sanity/image";
+import { extractHeadings } from "@/lib/toc";
 
 export const revalidate = 60;
 
@@ -55,6 +57,7 @@ export default async function BlogPostPage({
   const authorImg = post.author?.image?.asset
     ? urlForImage(post.author.image).width(96).height(96).fit("crop").url()
     : null;
+  const headings = extractHeadings(post.body);
 
   return (
     <>
@@ -119,10 +122,17 @@ export default async function BlogPostPage({
           </div>
         ) : null}
 
-        {/* Body */}
+        {/* Body, with the section nav parked in the left column. The grid only
+            engages at lg — below that the nav collapses and stacks above the
+            prose, and the article keeps its original single-column measure. */}
         <article className="pb-16 md:pb-24 bg-white">
-          <div className="max-w-[720px] mx-auto px-5 md:px-6">
-            <PortableTextBody value={post.body} />
+          <div className="max-w-[1160px] mx-auto px-5 md:px-6">
+            <div className="lg:grid lg:grid-cols-[220px_minmax(0,720px)] lg:gap-14 lg:justify-center">
+              <TableOfContents headings={headings} />
+              <div className="min-w-0 max-w-[720px] mx-auto lg:mx-0">
+                <PortableTextBody value={post.body} />
+              </div>
+            </div>
           </div>
         </article>
 

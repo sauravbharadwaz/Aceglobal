@@ -6,26 +6,53 @@ import Link from "next/link";
 
 import FaqAccordionItem from "@/components/FaqAccordionItem";
 import { urlForImage } from "@/sanity/image";
+import {
+  buildHeadingIds,
+  headingText,
+  isBlock,
+  isFaqHeading,
+  type PTBlock,
+} from "@/lib/toc";
 
-const components: PortableTextComponents = {
+/**
+ * Components are built per-post rather than defined once at module scope so the
+ * heading renderers can close over the post's `_key` → anchor id map. That map
+ * is what the table of contents links at, so it has to come from the same
+ * source — see lib/toc.ts.
+ *
+ * `scroll-mt-28` keeps a jumped-to heading clear of the fixed navbar.
+ */
+const makeComponents = (ids: Map<string, string>): PortableTextComponents => {
+  const anchor = (value: unknown) => ids.get((value as PTBlock)?._key ?? "");
+
+  return {
   block: {
     normal: ({ children }) => (
       <p className="text-[#424655] text-base md:text-lg leading-relaxed mb-6">
         {children}
       </p>
     ),
-    h2: ({ children }) => (
-      <h2 className="text-[26px] md:text-[34px] font-medium text-[#00174c] leading-[1.2] mt-12 mb-4">
+    h2: ({ children, value }) => (
+      <h2
+        id={anchor(value)}
+        className="scroll-mt-28 text-[26px] md:text-[34px] font-medium text-[#00174c] leading-[1.2] mt-12 mb-4"
+      >
         {children}
       </h2>
     ),
-    h3: ({ children }) => (
-      <h3 className="text-xl md:text-2xl font-medium text-[#00174c] mt-10 mb-3">
+    h3: ({ children, value }) => (
+      <h3
+        id={anchor(value)}
+        className="scroll-mt-28 text-xl md:text-2xl font-medium text-[#00174c] mt-10 mb-3"
+      >
         {children}
       </h3>
     ),
-    h4: ({ children }) => (
-      <h4 className="text-lg font-semibold text-[#00174c] mt-8 mb-2">
+    h4: ({ children, value }) => (
+      <h4
+        id={anchor(value)}
+        className="scroll-mt-28 text-lg font-semibold text-[#00174c] mt-8 mb-2"
+      >
         {children}
       </h4>
     ),
@@ -104,29 +131,10 @@ const components: PortableTextComponents = {
       );
     },
   },
+  };
 };
 
 type PTValue = Parameters<typeof PortableText>[0]["value"];
-
-type PTBlock = {
-  _type?: string;
-  style?: string;
-  children?: { text?: string }[];
-};
-
-function headingText(block: PTBlock) {
-  return (block.children || [])
-    .map((c) => c.text || "")
-    .join("")
-    .trim();
-}
-
-const isBlock = (b: PTBlock, style: string) =>
-  b._type === "block" && b.style === style;
-
-// Only the post's FAQ section collapses. Everything else is a normal article.
-const isFaqHeading = (b: PTBlock) =>
-  isBlock(b, "h2") && /frequently asked questions/i.test(headingText(b));
 
 // The article renders straight through as prose. When we reach the
 // "Frequently asked questions" h2, we switch modes: that heading stays a
@@ -187,6 +195,7 @@ export default function PortableTextBody({ value }: { value: unknown }) {
   if (!Array.isArray(value) || value.length === 0) return null;
 
   const segments = segment(value as PTBlock[]);
+  const components = makeComponents(buildHeadingIds(value));
 
   return (
     <>
