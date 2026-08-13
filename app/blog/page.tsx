@@ -57,7 +57,9 @@ function PostCardItem({ post }: { post: PostCard }) {
           />
         ) : null}
         {post.categories?.[0] ? (
-          <span className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm text-[#0053ce] text-xs font-medium px-3 py-1.5 rounded-full shadow-sm">
+          /* Bottom-right, not top-left: cover artwork carries the Ace Global
+             logo in its top-left corner and the pill was sitting on top of it. */
+          <span className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm text-[#0053ce] text-xs font-medium px-3 py-1.5 rounded-full shadow-sm">
             {post.categories[0].title}
           </span>
         ) : null}
