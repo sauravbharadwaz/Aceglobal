@@ -4,6 +4,8 @@ import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { motion, useReducedMotion } from "framer-motion";
 
+import ErrorBoundary from "./ErrorBoundary";
+
 // Lightweight floating particle field (Three.js Points).
 function Particles() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -15,6 +17,22 @@ function Particles() {
     // Skip the WebGL field entirely for reduced-motion users.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
+    // Feature-detect WebGL. On locked-down machines, VMs, GPU-blocklisted or
+    // hardware-acceleration-off setups it's unavailable — bail to the CSS
+    // gradient background instead of letting Three.js throw and blank the page.
+    try {
+      const probe = document.createElement("canvas");
+      const supported =
+        !!window.WebGLRenderingContext &&
+        !!(
+          probe.getContext("webgl") ||
+          probe.getContext("experimental-webgl")
+        );
+      if (!supported) return;
+    } catch {
+      return;
+    }
+
     let width = container.clientWidth;
     let height = container.clientHeight;
 
@@ -22,7 +40,14 @@ function Particles() {
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
     camera.position.z = 14;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    // Creating the renderer can still throw even after the probe (e.g. context
+    // lost between calls) — guard it so a failure degrades gracefully.
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+    } catch {
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(width, height);
     renderer.setClearColor(0x000000, 0);
@@ -152,8 +177,11 @@ export default function MinimalBackground() {
         transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* 3D floating particles */}
-      <Particles />
+      {/* 3D floating particles — guarded so a WebGL failure degrades to just
+          the gradient blobs above instead of crashing the page. */}
+      <ErrorBoundary>
+        <Particles />
+      </ErrorBoundary>
     </div>
   );
 }
