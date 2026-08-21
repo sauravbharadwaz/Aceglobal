@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@supabase/supabase-js";
+import { sendConfirmationEmail } from "@/lib/newsletter";
 
 export type LeadResult = { ok: boolean; error?: string };
 
@@ -54,6 +55,16 @@ export async function submitLead(
 
   if (error) {
     return { ok: false, error: "Something went wrong. Please try again." };
+  }
+
+  /* Double opt-in. The address is captured above either way, but it does not
+     join the mailing list until the link in this email is clicked, so nobody
+     can subscribe someone else by typing their address into the footer.
+     A failed send is logged and swallowed rather than surfaced: the lead is
+     already saved, and telling the subscriber their signup failed would be
+     untrue. What they lose is the confirmation, which they can retry. */
+  if (service === "newsletter") {
+    await sendConfirmationEmail(email);
   }
 
   return { ok: true };

@@ -11,7 +11,8 @@ export default function NewsletterForm() {
   if (state.ok) {
     return (
       <div className="max-w-md rounded-xl bg-white/10 px-5 py-4 text-sm text-white">
-        Thanks — you&apos;re on the list. Our team will be in touch soon.
+        Almost there. We have sent you a confirmation link, so open your inbox
+        and click it to join the list.
       </div>
     );
   }
