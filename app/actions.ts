@@ -25,7 +25,17 @@ export async function submitLead(
     return { ok: false, error: "Please enter a valid email address." };
   }
 
-  const name = String(formData.get("name") ?? "").trim() || email;
+  /* The newsletter form asks for an email and nothing else, so there is no name
+     to store. Falling back to the email put the address in both columns, which
+     left the admin's Leads list showing a column of addresses under "Name" with
+     no way to tell a subscriber from someone who filled in the contact box.
+     The fallback is per service rather than blanket: a form that does collect a
+     name still uses it, and anything that is not the newsletter keeps the old
+     behaviour rather than being mislabelled as a subscriber. */
+  const service = String(formData.get("service") ?? "newsletter") || "newsletter";
+  const name =
+    String(formData.get("name") ?? "").trim() ||
+    (service === "newsletter" ? "Newsletter subscriber" : email);
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -38,7 +48,7 @@ export async function submitLead(
     name,
     email,
     source: "website",
-    service: String(formData.get("service") ?? "newsletter") || "newsletter",
+    service,
     status: "new",
   });
 
