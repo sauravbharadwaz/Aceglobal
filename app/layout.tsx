@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Plus_Jakarta_Sans, Manrope } from "next/font/google";
 import { isProduction } from "@/lib/site-env";
 import "./globals.css";
 
@@ -7,6 +7,13 @@ const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
   variable: "--font-jakarta",
+});
+
+// Manrope powers the new dark/orange theme (home page + rollout).
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-manrope",
 });
 
 // Only the production deployment is indexable; staging and preview carry a
@@ -22,7 +29,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${jakarta.variable} scroll-smooth`}>
+    <html lang="en" className={`${jakarta.variable} ${manrope.variable} scroll-smooth`}>
       <body className="bg-[#faf8ff] text-[#00174c] font-sans antialiased">
         {children}
       </body>
