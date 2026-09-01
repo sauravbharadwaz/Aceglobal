@@ -84,6 +84,9 @@ export default function ThemeNav({ onToggle }: { onToggle: () => void }) {
           <a href="/blog">Blog</a>
           <a href="/pricing">Pricing</a>
           <a href="https://app.aceglobal.ai/?mode=login">Sign in</a>
+          <a href="https://app.aceglobal.ai/" className="pill orange">
+            Get started
+          </a>
         </div>
       ) : null}
     </nav>
