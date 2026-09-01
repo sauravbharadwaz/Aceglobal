@@ -224,8 +224,12 @@
 .ag .tcard header b{display:block;font-size:13px}.ag .tcard header small{color:var(--ink-muted);font-size:11.5px}
 
 /* difference */
-.ag .diff{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;margin-top:56px}
+.ag .diff{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;margin-top:56px;align-items:start}
 @media(max-width:900px){.ag .diff{grid-template-columns:1fr}}
+/* size these cards to their content instead of stretching to the tall photo
+   card — that stretch (+ foot margin-top:auto) left a big empty middle gap. */
+.ag .diff .lcard{min-height:0}
+.ag .diff .lcard .foot{margin-top:24px}
 .ag .progress{height:8px;background:#EEEDE9;border-radius:99px;overflow:hidden;margin-top:12px}
 .ag .progress i{display:block;height:100%;width:0;background:var(--orange);border-radius:99px}
 .ag .team{display:flex;gap:14px;margin-top:20px}
