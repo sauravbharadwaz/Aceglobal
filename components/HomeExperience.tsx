@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import ThemeNav from "./theme/ThemeNav";
+
 gsap.registerPlugin(ScrollTrigger);
 
 // Faithful port of the approved dark/orange landing design. All markup lives
@@ -488,37 +490,8 @@ export default function HomeExperience() {
         </div>
       </div>
 
-      {/* nav */}
-      <nav className="nav">
-        <div className="wrap">
-          <a href="/" className="logo">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="logo-img" src="/logo-orange.svg" alt="Ace Global logo" />
-            <span>Ace Global</span>
-          </a>
-          <div className="nav-links">
-            <a href="#platform">
-              Platform
-              <svg viewBox="0 0 10 10">
-                <path d="M2 3.5l3 3 3-3" fill="none" stroke="currentColor" strokeWidth="1.5" />
-              </svg>
-            </a>
-            <a href="/resources">Resources</a>
-            <a href="/blog">Blog</a>
-            <a href="/pricing">Pricing</a>
-          </div>
-          <div className="nav-r">
-            <button className="mode" onClick={toggleMode} aria-label="Toggle theme" type="button">
-              <span>☾</span>
-              <span>☀</span>
-            </button>
-            <a href="https://app.aceglobal.ai/?mode=login">Sign in</a>
-            <a href="https://app.aceglobal.ai/" className="pill orange">
-              Get started
-            </a>
-          </div>
-        </div>
-      </nav>
+      {/* nav (shared — includes the Platform dropdown + mobile menu) */}
+      <ThemeNav onToggle={toggleMode} />
 
       {/* hero */}
       <header className="hero">
