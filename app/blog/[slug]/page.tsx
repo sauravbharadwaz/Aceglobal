@@ -2,15 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import CTA from "@/components/CTA";
-import ScrollReveal from "@/components/ScrollReveal";
-import PortableTextBody from "@/components/PortableTextBody";
-import TableOfContents from "@/components/TableOfContents";
+import ThemeShell from "@/components/theme/ThemeShell";
+import PortableTextBodyDark from "@/components/PortableTextBodyDark";
 import { getPost, getPostSlugs } from "@/sanity/queries";
 import { urlForImage } from "@/sanity/image";
-import { extractHeadings } from "@/lib/toc";
 
 export const revalidate = 60;
 
@@ -35,11 +30,7 @@ export async function generateMetadata({
 
 function formatDate(iso?: string) {
   if (!iso) return "";
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+  return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
 }
 
 export default async function BlogPostPage({
@@ -57,88 +48,89 @@ export default async function BlogPostPage({
   const authorImg = post.author?.image?.asset
     ? urlForImage(post.author.image).width(96).height(96).fit("crop").url()
     : null;
-  const headings = extractHeadings(post.body);
 
   return (
-    <>
-      <ScrollReveal />
-      <Navbar />
-      <main>
-        {/* Hero */}
-        <section className="relative pt-32 md:pt-40 pb-8 md:pb-12 overflow-hidden bg-gradient-to-b from-[#e3e7ff] via-[#f2f3ff] to-white">
-          <div className="relative z-10 max-w-[820px] mx-auto px-5 md:px-6 text-center">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0053ce] hover:opacity-80 mb-6"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              All articles
+    <ThemeShell>
+      {/* Header */}
+      <section>
+        <div className="wrap" style={{ maxWidth: 840 }}>
+          <div style={{ textAlign: "center", paddingTop: 24 }}>
+            <Link href="/blog" style={{ color: "var(--orange-2)", fontSize: 13, fontWeight: 600 }}>
+              ← All articles
             </Link>
             {post.categories?.length ? (
-              <div className="flex flex-wrap justify-center gap-2 mb-5">
+              <div style={{ display: "flex", gap: 8, justifyContent: "center", margin: "18px 0 0" }}>
                 {post.categories.map((c) => (
                   <span
                     key={c.slug}
-                    className="text-xs font-medium bg-[#0053ce]/10 text-[#0053ce] px-3 py-1 rounded-full"
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 600,
+                      color: "var(--orange-2)",
+                      background: "rgba(255,90,31,.12)",
+                      border: "1px solid var(--line)",
+                      padding: "4px 12px",
+                      borderRadius: 999,
+                    }}
                   >
                     {c.title}
                   </span>
                 ))}
               </div>
             ) : null}
-            <h1 className="text-[30px] sm:text-[38px] md:text-[52px] font-medium leading-[1.14] tracking-[-0.02em] text-[#00174c] mb-6">
+            <h1
+              style={{
+                fontSize: "clamp(28px,4.6vw,48px)",
+                fontWeight: 600,
+                letterSpacing: "-.02em",
+                lineHeight: 1.14,
+                margin: "20px 0 22px",
+              }}
+            >
               {post.title}
             </h1>
-            <div className="flex items-center justify-center gap-3 text-sm text-[#727687]">
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 10,
+                color: "var(--muted)",
+                fontSize: 14,
+              }}
+            >
               {authorImg ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={authorImg}
                   alt={post.author?.name || ""}
-                  className="w-9 h-9 rounded-full object-cover"
+                  style={{ width: 36, height: 36, borderRadius: "50%", objectFit: "cover" }}
                 />
               ) : null}
-              <div className="text-left">
+              <div style={{ textAlign: "left" }}>
                 {post.author?.name ? (
-                  <p className="text-[#00174c] font-medium">{post.author.name}</p>
+                  <div style={{ color: "var(--txt)", fontWeight: 600 }}>{post.author.name}</div>
                 ) : null}
-                <p>{formatDate(post.publishedAt)}</p>
+                <div>{formatDate(post.publishedAt)}</div>
               </div>
             </div>
           </div>
-        </section>
 
-        {/* Cover image */}
-        {cover ? (
-          <div className="max-w-[960px] mx-auto px-5 md:px-6 -mt-2 mb-10 md:mb-14">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={cover}
-              alt={post.coverImage?.alt || post.title}
-              className="w-full rounded-[28px] border border-[#c2c6d8]/20 shadow-lg"
-            />
-          </div>
-        ) : null}
-
-        {/* Body, with the section nav parked in the left column. The grid only
-            engages at lg — below that the nav collapses and stacks above the
-            prose, and the article keeps its original single-column measure. */}
-        <article className="pb-16 md:pb-24 bg-white">
-          <div className="max-w-[1160px] mx-auto px-5 md:px-6">
-            <div className="lg:grid lg:grid-cols-[220px_minmax(0,720px)] lg:gap-14 lg:justify-center">
-              <TableOfContents headings={headings} />
-              <div className="min-w-0 max-w-[720px] mx-auto lg:mx-0">
-                <PortableTextBody value={post.body} />
-              </div>
+          {cover ? (
+            <div className="feat-hero-img" style={{ marginTop: 40, maxWidth: 840 }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={cover} alt={post.coverImage?.alt || post.title} />
             </div>
-          </div>
-        </article>
+          ) : null}
+        </div>
+      </section>
 
-        <CTA />
-      </main>
-      <Footer />
-    </>
+      {/* Body */}
+      <article style={{ padding: "0 0 120px" }}>
+        <div className="wrap" style={{ maxWidth: 760 }}>
+          <PortableTextBodyDark value={post.body} />
+        </div>
+      </article>
+    </ThemeShell>
   );
 }
