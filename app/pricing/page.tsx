@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import CTA from "@/components/CTA";
-import FAQ from "@/components/FAQ";
-import PricingTables from "@/components/PricingTables";
-import ScrollReveal from "@/components/ScrollReveal";
+
+import ThemeShell from "@/components/theme/ThemeShell";
+import PricingTablesDark from "@/components/PricingTablesDark";
 
 export const metadata: Metadata = {
   title: "Pricing | Ace Global",
@@ -13,22 +10,10 @@ export const metadata: Metadata = {
 };
 
 const included = [
-  {
-    title: "A dedicated team",
-    desc: "A real bookkeeper backed by CPAs, reachable on WhatsApp or iMessage.",
-  },
-  {
-    title: "AI agent on your numbers",
-    desc: "Ask about cash flow, runway, or any transaction and get answers in real time.",
-  },
-  {
-    title: "Historical cleanup",
-    desc: "We tidy and reconcile your past books during onboarding — at no extra cost.",
-  },
-  {
-    title: "No long-term contracts",
-    desc: "Month-to-month flexibility. Upgrade, downgrade, or cancel anytime.",
-  },
+  { title: "A dedicated team", desc: "A real bookkeeper backed by CPAs, reachable on WhatsApp or iMessage." },
+  { title: "AI agent on your numbers", desc: "Ask about cash flow, runway, or any transaction and get answers in real time." },
+  { title: "Historical cleanup", desc: "We tidy and reconcile your past books during onboarding — at no extra cost." },
+  { title: "No long-term contracts", desc: "Month-to-month flexibility. Upgrade, downgrade, or cancel anytime." },
 ];
 
 const compareRows: { feature: string; values: (boolean | string)[] }[] = [
@@ -46,138 +31,143 @@ const compareRows: { feature: string; values: (boolean | string)[] }[] = [
   { feature: "Sales tax & franchise tax", values: [false, false, true] },
 ];
 
-function Cell({ value }: { value: boolean | string }) {
-  if (typeof value === "string") {
-    return <span className="text-xs font-medium text-[#727687]">{value}</span>;
-  }
-  return value ? (
-    <span className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-      </svg>
-    </span>
-  ) : (
-    <span className="w-6 h-6 rounded-full bg-[#c2c6d8]/30 flex items-center justify-center text-[#727687]">
-      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </span>
-  );
+const faqs = [
+  {
+    q: "Is the price really all-inclusive?",
+    a: "Yes — your plan covers bookkeeping, your dedicated team, and your AI agent. Payroll and corporate tax filing are added as you move up plans, with no surprise line items.",
+  },
+  {
+    q: "Can I change plans later?",
+    a: "Anytime. Upgrade, downgrade, or cancel month-to-month — there are no long-term contracts.",
+  },
+  {
+    q: "What if my books are behind?",
+    a: "Historical cleanup is included on Growth and Scale (an add-on on Starter). We reconcile your past books during onboarding so you start on a clean slate.",
+  },
+  {
+    q: "Do you handle multi-state and multi-entity businesses?",
+    a: "Yes, on the Scale plan — including consolidations, multi-state apportionment, sales tax, and franchise tax.",
+  },
+];
+
+function CmpValue({ v }: { v: boolean | string }) {
+  if (typeof v === "string") return <>{v}</>;
+  return v ? <span className="yes">✓</span> : <span className="no">—</span>;
 }
 
 export default function PricingPage() {
   return (
-    <>
-      <ScrollReveal />
-      <Navbar />
-      <main>
-        {/* Hero + pricing tables over a glass-friendly gradient backdrop */}
-        <section className="relative pt-32 md:pt-40 pb-16 md:pb-24 overflow-hidden bg-gradient-to-b from-[#e3e7ff] via-[#f2f3ff] to-white">
-          {/* Colorful blurred blobs — give the frosted glass something to refract */}
-          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-            <div className="absolute -top-24 -left-24 w-[28rem] h-[28rem] bg-[#0053ce]/30 rounded-full blur-3xl" />
-            <div className="absolute top-40 -right-24 w-[30rem] h-[30rem] bg-[#94a6fe]/40 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-1/3 w-[26rem] h-[26rem] bg-[#196bfa]/20 rounded-full blur-3xl" />
-          </div>
-
-          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
-            <div className="text-center mb-12 md:mb-16">
-              <div className="inline-flex items-center gap-2 bg-white/40 backdrop-blur-md border border-white/50 px-4 py-2 rounded-full mb-6 shadow-sm">
-                <span className="text-sm font-medium tracking-wide text-[#243889]">Pricing</span>
-              </div>
-              <h1 className="text-[32px] sm:text-[40px] md:text-[60px] font-medium leading-[1.12] md:leading-[1.1] tracking-[-0.02em] text-[#00174c] max-w-4xl mx-auto mb-5 md:mb-6">
-                All-inclusive pricing.{" "}
-                <span className="text-[#0053ce]">No surprises.</span>
-              </h1>
-              <p className="text-base md:text-lg leading-relaxed text-[#424655] max-w-2xl mx-auto">
-                One flat rate covers your books, your team, and your AI agent. Add payroll and taxes
-                as you grow — and cancel anytime.
-              </p>
+    <ThemeShell>
+      {/* Header + plans */}
+      <section>
+        <div className="wrap">
+          <div className="page-head">
+            <div className="tag" data-fade>
+              <i>✦</i>Pricing
             </div>
-
-            <PricingTables />
+            <h1 data-fade>
+              All-inclusive pricing. <span className="accent">No surprises.</span>
+            </h1>
+            <p className="sub" data-fade>
+              One flat rate covers your books, your team, and your AI agent. Add payroll and taxes as
+              you grow — and cancel anytime.
+            </p>
           </div>
-        </section>
+          <PricingTablesDark />
+        </div>
+      </section>
 
-        {/* What's included in every plan */}
-        <section className="relative py-16 md:py-[120px] overflow-hidden bg-gradient-to-br from-[#172d65] via-[#1f3a82] to-[#0053ce]">
-          <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-            <div className="absolute -top-20 right-10 w-[26rem] h-[26rem] bg-[#94a6fe]/30 rounded-full blur-3xl" />
-            <div className="absolute -bottom-24 -left-16 w-[28rem] h-[28rem] bg-[#196bfa]/40 rounded-full blur-3xl" />
+      {/* Every plan includes */}
+      <section>
+        <div className="wrap">
+          <div className="center">
+            <div className="tag" data-fade>
+              <i>✦</i>Included
+            </div>
           </div>
-          <div className="relative z-10 max-w-[1280px] mx-auto px-5 md:px-6">
-            <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-white text-center mb-12 max-w-2xl mx-auto">
-              Every plan includes the essentials.
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {included.map((item) => (
-                <div
-                  key={item.title}
-                  className="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-xl"
-                >
-                  <div className="w-10 h-10 rounded-full bg-white/20 border border-white/25 flex items-center justify-center mb-5">
-                    <svg
-                      className="w-5 h-5 text-white"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
+          <h2 className="h2 center" data-fade>
+            Every plan includes the essentials.
+          </h2>
+          <div className="stat4" style={{ marginTop: 40 }}>
+            {included.map((x) => (
+              <div className="card" data-fade key={x.title}>
+                <h3>{x.title}</h3>
+                <p>{x.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Compare */}
+      <section>
+        <div className="wrap">
+          <div className="center">
+            <div className="tag" data-fade>
+              <i>✦</i>Compare
+            </div>
+          </div>
+          <h2 className="h2 center" data-fade>
+            Compare every plan
+          </h2>
+          <div className="cmp" data-fade>
+            <div className="row head">
+              <div className="cell feat">Features</div>
+              <div className="cell">Starter</div>
+              <div className="cell hot">Growth</div>
+              <div className="cell">Scale</div>
+            </div>
+            {compareRows.map((r) => (
+              <div className="row" key={r.feature}>
+                <div className="cell feat">{r.feature}</div>
+                {r.values.map((v, i) => (
+                  <div className="cell" key={i}>
+                    <CmpValue v={v} />
                   </div>
-                  <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
-                  <p className="text-sm text-[#dbe1ff]/80 leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Compare plans table */}
-        <section className="py-16 md:py-[120px] bg-white">
-          <div className="max-w-[1100px] mx-auto px-5 md:px-6">
-            <div className="text-center mb-12">
-              <h2 className="text-[28px] md:text-[40px] font-medium leading-[1.2] text-[#00174c] mb-3">
-                Compare every plan
-              </h2>
-              <p className="text-[#727687] text-lg">
-                See exactly what&apos;s included as you scale.
-              </p>
-            </div>
-
-            <div className="overflow-hidden rounded-3xl border border-[#c2c6d8]/30 shadow-sm">
-              <div className="grid grid-cols-4 bg-[#172d65] text-white text-sm font-medium">
-                <div className="p-4 md:p-5">Features</div>
-                <div className="p-4 md:p-5 text-center text-[#dbe1ff]/80">Starter</div>
-                <div className="p-4 md:p-5 text-center bg-[#0053ce]">Growth</div>
-                <div className="p-4 md:p-5 text-center text-[#dbe1ff]/80">Scale</div>
+                ))}
               </div>
-              {compareRows.map((row, i) => (
-                <div
-                  key={row.feature}
-                  className={`grid grid-cols-4 text-sm ${i % 2 ? "bg-[#f2f3ff]" : "bg-white"}`}
-                >
-                  <div className="p-4 md:p-5 text-[#00174c] font-medium">{row.feature}</div>
-                  {row.values.map((v, j) => (
-                    <div key={j} className="p-4 md:p-5 flex items-center justify-center text-center">
-                      <Cell value={v} />
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <FAQ />
-        <CTA />
-      </main>
-      <Footer />
-    </>
+      {/* FAQ */}
+      <section>
+        <div className="wrap">
+          <h2 className="h2 center" data-fade>
+            Frequently asked questions
+          </h2>
+          <div className="faq">
+            {faqs.map((f, i) => (
+              <div className={`q ${i === 0 ? "open" : ""}`} key={f.q}>
+                <button type="button">
+                  <i>⌄</i>
+                  {f.q}
+                </button>
+                <div className="a">
+                  <p>{f.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section id="contact">
+        <div className="wrap">
+          <div className="contact-card" data-contact>
+            <h2 className="h2">Your AI-powered finance team for books, taxes, and payroll.</h2>
+            <p>
+              Talk to your CPA team and AI agent on WhatsApp or iMessage while your books and filings
+              run on autopilot.
+            </p>
+            <a href="https://app.aceglobal.ai/" className="pill white">
+              Get started now
+            </a>
+          </div>
+        </div>
+      </section>
+    </ThemeShell>
   );
 }
