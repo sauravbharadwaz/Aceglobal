@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import CountUp from "./CountUp";
 import RotatingWord from "./RotatingWord";
 
@@ -29,10 +31,12 @@ export default function BentoGrid() {
                 { src: "/avatar-2.webp", name: "James Park" },
                 { src: "/avatar-3.webp", name: "Anita Rao" },
               ].map((p) => (
-                <img
+                <Image
                   key={p.name}
                   src={p.src}
                   alt={p.name}
+                  width={64}
+                  height={64}
                   className="w-16 h-16 rounded-full object-cover border-4 border-[#ebedff]"
                 />
               ))}

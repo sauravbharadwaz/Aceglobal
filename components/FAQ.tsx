@@ -2,28 +2,8 @@
 
 import { useState } from "react";
 
-const faqs = [
-  {
-    q: "How long does onboarding take?",
-    a: "Onboarding usually takes about 30 minutes. We connect your bank accounts, credit cards, payroll, and business systems. After that, our team reviews your historical books and gets everything cleaned up, reconciled, and ready to manage monthly.",
-  },
-  {
-    q: "Is my data secure?",
-    a: "Yes. We use secure, read-only connections wherever possible, so we can review transactions for bookkeeping without access to move your money. Your financial data is protected using modern security practices and trusted accounting systems.",
-  },
-  {
-    q: "Do you handle business taxes?",
-    a: "Yes. We handle federal, state, and local business tax filings for small businesses, including LLCs, S-Corps, C-Corps, partnerships, and sole proprietors. We also help with sales tax, payroll tax, franchise tax, and year-end filings.",
-  },
-  {
-    q: "What accounting software do you use?",
-    a: "We work with QuickBooks Online, Xero, and other commonly used accounting systems. If you already have software, we can take it over. If not, we'll help set it up as part of onboarding.",
-  },
-  {
-    q: "How do you communicate with clients?",
-    a: "You can message us on WhatsApp, iMessage, email, or your client inbox. Your dedicated accountant and AI agent help answer questions, collect documents, and keep your books, payroll, and tax filings moving.",
-  },
-];
+import JsonLd from "@/components/JsonLd";
+import { faqs, faqPageJsonLd } from "@/lib/faqs";
 
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
@@ -32,6 +12,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
       <button
         className="flex justify-between items-center w-full text-left"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
       >
         <span className="text-lg md:text-2xl font-medium text-[#00174c]">{q}</span>
         <span
@@ -52,6 +33,9 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 export default function FAQ() {
   return (
     <section className="py-16 md:py-[120px] bg-white">
+      {/* FAQPage markup lives with the section that renders the questions, so
+          any page that shows this FAQ also declares it. */}
+      <JsonLd data={faqPageJsonLd(faqs)} />
       <div className="max-w-[1280px] mx-auto px-5 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Sticky CTA card */}

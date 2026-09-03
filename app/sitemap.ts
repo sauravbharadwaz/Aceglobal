@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { SITE_URL } from "@/lib/site-env";
 import { getPosts } from "@/sanity/queries";
 
 /**
@@ -12,10 +13,9 @@ import { getPosts } from "@/sanity/queries";
 // roughly the same schedule it appears on the site.
 export const revalidate = 60;
 
-// Absolute URLs are required in a sitemap. The production domain is used even on
-// a preview deployment, which is harmless: robots.txt disallows everything
-// outside production, so nothing crawls a preview sitemap in the first place.
-const SITE_URL = "https://aceglobal.ai";
+// Absolute URLs are required in a sitemap. SITE_URL is the production domain
+// even on a preview deployment, which is harmless: robots.txt disallows
+// everything outside production, so nothing crawls a preview sitemap.
 
 /**
  * Fixed pages, highest value first.
@@ -53,12 +53,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = await getPosts();
 
   const postEntries: MetadataRoute.Sitemap = posts
-    .filter((post) => Boolean(post.slug))
+    // A post an editor has hidden from search carries a noindex tag; listing
+    // it here would send crawlers a contradictory signal.
+    .filter((post) => Boolean(post.slug) && !post.noIndex)
     .map((post) => ({
       url: `${SITE_URL}/blog/${post.slug}`,
-      // A real date where the post has one. Falling back to now would tell
-      // crawlers every post changed on every regeneration.
-      lastModified: post.publishedAt ? new Date(post.publishedAt) : now,
+      // The last edit where Sanity has one, then the publish date. Falling
+      // back to now would tell crawlers every post changed on every
+      // regeneration.
+      lastModified: post._updatedAt
+        ? new Date(post._updatedAt)
+        : post.publishedAt
+          ? new Date(post.publishedAt)
+          : now,
       changeFrequency: "monthly",
       priority: 0.6,
     }));

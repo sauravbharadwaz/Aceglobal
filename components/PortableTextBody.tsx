@@ -2,10 +2,13 @@ import {
   PortableText,
   type PortableTextComponents,
 } from "@portabletext/react";
+import Image from "next/image";
 import Link from "next/link";
 
 import FaqAccordionItem from "@/components/FaqAccordionItem";
-import { urlForImage } from "@/sanity/image";
+import JsonLd from "@/components/JsonLd";
+import { faqPageJsonLd } from "@/lib/faqs";
+import { imageDimensions, urlForImage } from "@/sanity/image";
 import {
   buildHeadingIds,
   headingText,
@@ -114,13 +117,18 @@ const makeComponents = (ids: Map<string, string>): PortableTextComponents => {
         .fit("max")
         .auto("format")
         .url();
+      // Intrinsic size comes from the asset id; the article column is 720px
+      // wide, so that's the largest variant a browser ever needs.
+      const dims = imageDimensions(value) ?? { width: 1600, height: 900 };
       return (
         <figure className="my-8">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={url}
             alt={value.alt || ""}
-            className="w-full rounded-2xl border border-[#c2c6d8]/20"
+            width={dims.width}
+            height={dims.height}
+            sizes="(max-width: 768px) 100vw, 720px"
+            className="w-full h-auto rounded-2xl border border-[#c2c6d8]/20"
           />
           {value.alt ? (
             <figcaption className="text-sm text-[#727687] mt-2 text-center">
@@ -148,6 +156,22 @@ type Segment =
       intro: PTBlock[];
       items: { question: string; blocks: PTBlock[] }[];
     };
+
+/** Text content of a run of Portable Text blocks, one space between blocks. */
+function plainText(blocks: PTBlock[]): string {
+  return blocks
+    .map((block) =>
+      Array.isArray(block.children)
+        ? block.children
+            .map((child) => (typeof child?.text === "string" ? child.text : ""))
+            .join("")
+        : ""
+    )
+    .filter(Boolean)
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 function segment(blocks: PTBlock[]): Segment[] {
   const segments: Segment[] = [];
@@ -197,8 +221,19 @@ export default function PortableTextBody({ value }: { value: unknown }) {
   const segments = segment(value as PTBlock[]);
   const components = makeComponents(buildHeadingIds(value));
 
+  // Every question the article renders as an accordion, as plain text, so the
+  // FAQ section can be declared as FAQPage markup for search and AI answers.
+  const faqItems = segments.flatMap((seg) =>
+    seg.kind === "faq"
+      ? seg.items
+          .map((item) => ({ q: item.question, a: plainText(item.blocks) }))
+          .filter((item) => item.q && item.a)
+      : []
+  );
+
   return (
     <>
+      {faqItems.length > 0 ? <JsonLd data={faqPageJsonLd(faqItems)} /> : null}
       {segments.map((seg, i) =>
         seg.kind === "prose" ? (
           <PortableText

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -22,11 +23,12 @@ export default function Navbar() {
       <div className="relative flex justify-between items-center max-w-[1280px] mx-auto px-5 md:px-6 h-20">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5">
-          <img
+          <Image
             src="/logo.svg"
             alt="Ace Global logo"
             width={36}
             height={36}
+            preload
             className="h-9 w-9"
           />
           <span className="text-2xl font-semibold text-[#00174c]">

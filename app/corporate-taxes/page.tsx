@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
@@ -6,6 +7,7 @@ import CountUp from "@/components/CountUp";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/corporate-taxes" },
   title: "Corporate Taxes | Ace Global",
   description:
     "Delaware Franchise Tax, federal and state corporate income taxes — prepared and filed on time by your CPA team.",
@@ -124,10 +126,14 @@ export default function CorporateTaxesPage() {
             {/* Hero dashboard visual */}
             <div className="relative max-w-5xl mx-auto">
               <div className="absolute -inset-4 bg-[#0053ce]/5 blur-3xl rounded-full pointer-events-none" />
-              <img
+              <Image
                 src="/taxes-hero.webp"
                 alt="Ace Global tax compliance dashboard"
-                className="relative w-full rounded-3xl shadow-2xl border border-[#c2c6d8]/30 animate-float"
+                width={1024}
+                height={576}
+                preload
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className="relative w-full h-auto rounded-3xl shadow-2xl border border-[#c2c6d8]/30 animate-float"
               />
             </div>
           </div>
@@ -246,10 +252,12 @@ export default function CorporateTaxesPage() {
                 </div>
                 <div className="mt-8 flex gap-4 transition-transform duration-500 group-hover:translate-x-2">
                   {["/avatar-2.webp", "/avatar-3.webp", "/avatar-1.webp"].map((src) => (
-                    <img
+                    <Image
                       key={src}
                       src={src}
                       alt="Tax expert"
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full object-cover border-4 border-[#ebedff]"
                     />
                   ))}

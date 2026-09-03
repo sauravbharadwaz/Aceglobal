@@ -17,3 +17,13 @@
 export const SITE_ENV = process.env.SITE_ENV ?? process.env.VERCEL_ENV ?? "development";
 
 export const isProduction = SITE_ENV === "production";
+
+/**
+ * Canonical public origin, no trailing slash. Used for canonical URLs, Open
+ * Graph URLs, JSON-LD and the sitemap. Always the production domain: a preview
+ * deployment that advertised its own origin would hand crawlers duplicate
+ * copies of every page.
+ */
+export const SITE_URL = (process.env.SITE_URL || "https://aceglobal.ai").replace(/\/+$/, "");
+
+export const SITE_NAME = "Ace Global";

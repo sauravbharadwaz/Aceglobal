@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -8,15 +9,57 @@ import CTA from "@/components/CTA";
 import ScrollReveal from "@/components/ScrollReveal";
 import PortableTextBody from "@/components/PortableTextBody";
 import TableOfContents from "@/components/TableOfContents";
-import { getPost, getPostSlugs } from "@/sanity/queries";
+import JsonLd from "@/components/JsonLd";
+import { getPost, getPostSlugs, type PostFull } from "@/sanity/queries";
 import { urlForImage } from "@/sanity/image";
 import { extractHeadings } from "@/lib/toc";
+import { SITE_NAME, SITE_URL } from "@/lib/site-env";
 
 export const revalidate = 60;
 
 export async function generateStaticParams() {
   const slugs = await getPostSlugs();
   return slugs.map((slug) => ({ slug }));
+}
+
+/**
+ * Everything search engines and link previews read from a post, resolved once
+ * so generateMetadata and the JSON-LD block can't disagree with each other.
+ */
+function resolveSeo(post: PostFull) {
+  const url = `${SITE_URL}/blog/${post.slug}`;
+  const title = post.seo?.metaTitle || `${post.title} | ${SITE_NAME}`;
+  const description = post.seo?.metaDescription || post.excerpt || undefined;
+
+  // Dedicated share image first, then the cover. Both are cropped to the
+  // 1200×630 that LinkedIn, X, Slack and iMessage all expect.
+  const imageSource = post.seo?.ogImage?.asset
+    ? post.seo.ogImage
+    : post.coverImage?.asset
+      ? post.coverImage
+      : null;
+  const image = imageSource
+    ? {
+        url: urlForImage(imageSource)
+          .width(1200)
+          .height(630)
+          .fit("crop")
+          .auto("format")
+          .url(),
+        width: 1200,
+        height: 630,
+        alt: imageSource.alt || post.title,
+      }
+    : null;
+
+  return {
+    url,
+    title,
+    description,
+    image,
+    canonical: post.seo?.canonicalUrl || url,
+    noIndex: post.seo?.noIndex === true,
+  };
 }
 
 export async function generateMetadata({
@@ -26,10 +69,86 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const post = await getPost(slug);
-  if (!post) return { title: "Blog | Ace Global" };
+  if (!post) return { title: `Blog | ${SITE_NAME}` };
+
+  const seo = resolveSeo(post);
+
   return {
-    title: post.seo?.metaTitle || `${post.title} | Ace Global`,
-    description: post.seo?.metaDescription || post.excerpt || undefined,
+    title: seo.title,
+    description: seo.description,
+    alternates: { canonical: seo.canonical },
+    // Only emit robots when the editor asked to hide the post; otherwise the
+    // layout's environment-based rule (noindex outside production) applies.
+    ...(seo.noIndex ? { robots: { index: false, follow: false } } : {}),
+    openGraph: {
+      type: "article",
+      url: seo.url,
+      title: seo.title,
+      description: seo.description,
+      siteName: SITE_NAME,
+      locale: "en_US",
+      publishedTime: post.publishedAt,
+      modifiedTime: post._updatedAt,
+      authors: post.author?.name ? [post.author.name] : undefined,
+      section: post.categories?.[0]?.title,
+      tags: post.categories?.map((c) => c.title),
+      images: seo.image ? [seo.image] : undefined,
+    },
+    twitter: {
+      card: seo.image ? "summary_large_image" : "summary",
+      title: seo.title,
+      description: seo.description,
+      images: seo.image ? [seo.image.url] : undefined,
+    },
+  };
+}
+
+/**
+ * schema.org BlogPosting + BreadcrumbList. This is what lets Google show the
+ * author, date and image in results and what AI answer engines use to
+ * attribute the article. Data comes from our own CMS, so it's safe to inline.
+ */
+function buildJsonLd(post: PostFull) {
+  const seo = resolveSeo(post);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "@id": `${seo.url}#article`,
+        mainEntityOfPage: { "@type": "WebPage", "@id": seo.url },
+        headline: post.title,
+        description: seo.description,
+        image: seo.image ? [seo.image.url] : undefined,
+        datePublished: post.publishedAt,
+        dateModified: post._updatedAt || post.publishedAt,
+        author: post.author?.name
+          ? {
+              "@type": "Person",
+              name: post.author.name,
+              jobTitle: post.author.role,
+            }
+          : { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+        publisher: {
+          "@type": "Organization",
+          "@id": `${SITE_URL}/#organization`,
+          name: SITE_NAME,
+          url: SITE_URL,
+          logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.svg` },
+        },
+        articleSection: post.categories?.map((c) => c.title),
+        inLanguage: "en-US",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+          { "@type": "ListItem", position: 2, name: "Blog", item: `${SITE_URL}/blog` },
+          { "@type": "ListItem", position: 3, name: post.title, item: seo.url },
+        ],
+      },
+    ],
   };
 }
 
@@ -58,9 +177,11 @@ export default async function BlogPostPage({
     ? urlForImage(post.author.image).width(96).height(96).fit("crop").url()
     : null;
   const headings = extractHeadings(post.body);
+  const jsonLd = buildJsonLd(post);
 
   return (
     <>
+      <JsonLd data={jsonLd} />
       <ScrollReveal />
       <Navbar />
       <main>
@@ -93,10 +214,11 @@ export default async function BlogPostPage({
             </h1>
             <div className="flex items-center justify-center gap-3 text-sm text-[#727687]">
               {authorImg ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   src={authorImg}
                   alt={post.author?.name || ""}
+                  width={36}
+                  height={36}
                   className="w-9 h-9 rounded-full object-cover"
                 />
               ) : null}
@@ -104,7 +226,9 @@ export default async function BlogPostPage({
                 {post.author?.name ? (
                   <p className="text-[#00174c] font-medium">{post.author.name}</p>
                 ) : null}
-                <p>{formatDate(post.publishedAt)}</p>
+                <p>
+                  <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
+                </p>
               </div>
             </div>
           </div>
@@ -113,11 +237,14 @@ export default async function BlogPostPage({
         {/* Cover image */}
         {cover ? (
           <div className="max-w-[960px] mx-auto px-5 md:px-6 -mt-2 mb-10 md:mb-14">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={cover}
               alt={post.coverImage?.alt || post.title}
-              className="w-full rounded-[28px] border border-[#c2c6d8]/20 shadow-lg"
+              width={1600}
+              height={840}
+              preload
+              sizes="(max-width: 960px) 100vw, 960px"
+              className="w-full h-auto rounded-[28px] border border-[#c2c6d8]/20 shadow-lg"
             />
           </div>
         ) : null}

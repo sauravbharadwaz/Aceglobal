@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const cards = [
   {
     saved: "Saved $125,839",
@@ -33,10 +35,12 @@ export default function TestimonialCards() {
               className="min-w-[320px] md:min-w-[400px] h-[500px] rounded-3xl overflow-hidden relative group flex-shrink-0"
             >
               {/* Founder photo — grayscale, color on hover */}
-              <img
+              <Image
                 src={c.image}
                 alt={c.name}
-                className="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                fill
+                sizes="(max-width: 768px) 320px, 400px"
+                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
               />
               {/* Bottom overlay for text legibility */}
               <div className="absolute inset-0 bg-gradient-to-t from-[#00174c] via-[#00174c]/20 to-transparent opacity-80" />

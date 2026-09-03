@@ -6,6 +6,7 @@ import ResourceLibrary from "@/components/ResourceLibrary";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/resources" },
   title: "Resources | Ace Global",
   description:
     "Guides, templates, and articles on bookkeeping, corporate taxes, payroll, and compliance for small businesses — written by our CPA team.",
