@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 /* Photo card with name + title overlaid at the bottom */
 function PhotoCard({
   src,
@@ -18,10 +20,12 @@ function PhotoCard({
     <div
       className={`relative rounded-3xl overflow-hidden h-[380px] md:h-[440px] ring-1 ring-[#c2c6d8]/40 shadow-[0_8px_24px_rgba(15,38,120,0.08)] ${bg}`}
     >
-      <img
+      <Image
         src={src}
         alt={name}
-        className={`absolute inset-0 w-full h-full object-cover ${objectPos} ${imgClass}`}
+        fill
+        sizes="(max-width: 768px) 100vw, 400px"
+        className={`object-cover ${objectPos} ${imgClass}`}
       />
       {/* light fade so the dark text stays readable */}
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-white/90 via-white/35 to-transparent" />

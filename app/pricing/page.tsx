@@ -7,6 +7,7 @@ import PricingTables from "@/components/PricingTables";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/pricing" },
   title: "Pricing | Ace Global",
   description:
     "Simple, all-inclusive pricing for bookkeeping, payroll, and corporate taxes. Pick the plan that fits your business — no long-term contracts.",

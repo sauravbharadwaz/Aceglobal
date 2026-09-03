@@ -6,11 +6,13 @@ import { isSanityConfigured } from "./env";
 // Shared card fields
 const postCardFields = groq`
   _id,
+  _updatedAt,
   title,
   "slug": slug.current,
   excerpt,
   publishedAt,
   coverImage,
+  "noIndex": seo.noIndex == true,
   "readTime": round(length(pt::text(body)) / 5 / 200),
   "author": author->{name, role, image},
   "categories": categories[]->{title, "slug": slug.current}
@@ -33,13 +35,23 @@ export type SanityImage = {
   hotspot?: unknown;
 };
 
+export type PostSeo = {
+  metaTitle?: string;
+  metaDescription?: string;
+  ogImage?: SanityImage;
+  canonicalUrl?: string;
+  noIndex?: boolean;
+};
+
 export type PostCard = {
   _id: string;
+  _updatedAt?: string;
   title: string;
   slug: string;
   excerpt?: string;
   publishedAt?: string;
   coverImage?: SanityImage;
+  noIndex?: boolean;
   readTime?: number;
   author?: { name?: string; role?: string; image?: SanityImage };
   categories?: { title: string; slug: string }[];
@@ -47,7 +59,7 @@ export type PostCard = {
 
 export type PostFull = PostCard & {
   body?: unknown;
-  seo?: { metaTitle?: string; metaDescription?: string };
+  seo?: PostSeo;
 };
 
 export async function getPosts(): Promise<PostCard[]> {

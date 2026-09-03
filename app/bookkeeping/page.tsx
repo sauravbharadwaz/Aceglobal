@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
@@ -6,6 +7,7 @@ import CountUp from "@/components/CountUp";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/bookkeeping" },
   title: "Bookkeeping | Ace Global",
   description:
     "Get your books closed and your financials monthly, quarterly, or annually — handled by a dedicated CPA-led team.",
@@ -114,10 +116,14 @@ export default function BookkeepingPage() {
             {/* Hero dashboard visual */}
             <div className="relative max-w-5xl mx-auto">
               <div className="absolute -inset-4 bg-[#0053ce]/5 blur-3xl rounded-full pointer-events-none" />
-              <img
+              <Image
                 src="/bookkeeping-hero.webp"
                 alt="Ace Global bookkeeping dashboard"
-                className="relative w-full rounded-3xl shadow-2xl border border-[#c2c6d8]/30 animate-float"
+                width={1024}
+                height={576}
+                preload
+                sizes="(max-width: 1024px) 100vw, 1024px"
+                className="relative w-full h-auto rounded-3xl shadow-2xl border border-[#c2c6d8]/30 animate-float"
               />
             </div>
           </div>
@@ -192,10 +198,12 @@ export default function BookkeepingPage() {
                 </div>
                 <div className="mt-8 flex gap-4 transition-transform duration-500 group-hover:translate-x-2">
                   {["/avatar-1.webp", "/avatar-2.webp", "/avatar-3.webp"].map((src) => (
-                    <img
+                    <Image
                       key={src}
                       src={src}
                       alt="Bookkeeper"
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full object-cover border-4 border-[#ebedff]"
                     />
                   ))}

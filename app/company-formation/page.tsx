@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CTA from "@/components/CTA";
@@ -6,6 +7,7 @@ import CountUp from "@/components/CountUp";
 import ScrollReveal from "@/components/ScrollReveal";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/company-formation" },
   title: "Company Formation | Ace Global",
   description:
     "Form your LLC or C-Corp the right way — incorporation, EIN, registered agent, and compliance handled end to end by your CPA team.",
@@ -235,10 +237,12 @@ export default function CompanyFormationPage() {
                 </div>
                 <div className="mt-8 flex gap-4 transition-transform duration-500 group-hover:translate-x-2">
                   {["/avatar-1.webp", "/avatar-3.webp", "/avatar-2.webp"].map((src) => (
-                    <img
+                    <Image
                       key={src}
                       src={src}
                       alt="Formation specialist"
+                      width={64}
+                      height={64}
                       className="w-16 h-16 rounded-full object-cover border-4 border-[#ebedff]"
                     />
                   ))}

@@ -52,15 +52,58 @@ export const post = defineType({
       name: "seo",
       type: "object",
       title: "SEO",
+      description:
+        "Everything here is optional. Leave a field blank and the site falls back to the post title, excerpt and cover image.",
       options: { collapsible: true, collapsed: true },
       fields: [
-        { name: "metaTitle", type: "string", title: "Meta title" },
-        {
+        defineField({
+          name: "metaTitle",
+          type: "string",
+          title: "Meta title",
+          description:
+            "Overrides the browser/search title. Aim for 50–60 characters; longer titles get truncated in results.",
+          validation: (Rule) =>
+            Rule.max(60).warning(
+              "Titles over 60 characters get cut off in search results."
+            ),
+        }),
+        defineField({
           name: "metaDescription",
           type: "text",
           rows: 2,
           title: "Meta description",
-        },
+          description:
+            "Overrides the meta description. Aim for 150–160 characters and give a reason to click.",
+          validation: (Rule) =>
+            Rule.max(160).warning(
+              "Descriptions over 160 characters get cut off in search results."
+            ),
+        }),
+        defineField({
+          name: "ogImage",
+          type: "image",
+          title: "Social share image",
+          description:
+            "Shown when the post is shared on LinkedIn, X, Slack, etc. Use 1200×630. Falls back to the cover image.",
+          options: { hotspot: true },
+          fields: [{ name: "alt", type: "string", title: "Alt text" }],
+        }),
+        defineField({
+          name: "canonicalUrl",
+          type: "url",
+          title: "Canonical URL",
+          description:
+            "Only set this if the article was published first somewhere else. Points search engines at the original.",
+          validation: (Rule) => Rule.uri({ scheme: ["https", "http"] }),
+        }),
+        defineField({
+          name: "noIndex",
+          type: "boolean",
+          title: "Hide from search engines",
+          description:
+            "Adds a noindex tag and drops the post from the sitemap. The page stays reachable by direct link.",
+          initialValue: false,
+        }),
       ],
     }),
   ],

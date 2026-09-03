@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import Navbar from "@/components/Navbar";
@@ -9,6 +10,7 @@ import { getPosts, type PostCard } from "@/sanity/queries";
 import { urlForImage } from "@/sanity/image";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog" },
   title: "Blog | Ace Global",
   description:
     "Insights on bookkeeping, corporate taxes, payroll, and compliance for small businesses — from the Ace Global team.",
@@ -49,11 +51,12 @@ function PostCardItem({ post }: { post: PostCard }) {
       {/* Cover image (or branded gradient placeholder) */}
       <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-gradient-to-br from-[#e3e7ff] via-[#eef0ff] to-[#cdd6ff]">
         {img ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={img}
             alt={post.coverImage?.alt || post.title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 400px"
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
           />
         ) : null}
         {post.categories?.[0] ? (
@@ -80,10 +83,11 @@ function PostCardItem({ post }: { post: PostCard }) {
         {author?.name ? (
           <div className="mt-5 flex items-center gap-2.5">
             {authorImg ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
+              <Image
                 src={authorImg}
                 alt={author.name}
+                width={28}
+                height={28}
                 className="w-7 h-7 rounded-full object-cover"
               />
             ) : (
